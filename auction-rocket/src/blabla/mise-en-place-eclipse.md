@@ -10,6 +10,8 @@ Perspective Git > Clone a repository : url (https://github.com/LSarribouette/auc
 
 > Attention à ne pas enregistrer les deux au même endroit en local.
 
+> Pour que Eclipse mémorise le token sur le long terme : indiquer son user ou email avec le token en password et cocher _Store in Secure Store_.
+
 3. Lier le projet et le dépôt
 
 Perspective JEE > Clique-droit sur le projet > Team > Share project : choix du dépôt > Finish

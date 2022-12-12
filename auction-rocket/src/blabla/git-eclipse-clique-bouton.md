@@ -11,8 +11,8 @@ Perspective Git > Clique-droit dans la fenêtre Git Repositories > Pull
 Une fenêtre apparait :
 
 1.  _Everything is up to date_ : tout est à jour, rien n'a été modifié
-2. _fze_ : la liste des fichiers mis à jour est indiquée, il n'y a pas eu de problèmes lors de la mise à jour
-3. _merge_ : il y a un conflit entre les fichiers sur le gitHub et les fichiers en local, la mise à jour n'a pas été possible ! Il faut gérer ce conflit.
+2. _Pushed to..._ : il n'y a pas eu de problèmes lors de la mise à jour, la liste des fichiers mis à jour est indiquée 
+3. autre : il y a probablement eu un conflit entre les fichiers sur le gitHub et les fichiers en local, la mise à jour n'a pas été possible ! Il faut gérer ce conflit.
 
 ## Faire un commit
 
