@@ -39,11 +39,23 @@ ALTER DATABASE auction_rocket_db OWNER TO auction_rocket_db_owner;
 -- DROP TABLE IF EXISTS public.categories;
 
 CREATE TABLE IF NOT EXISTS public.categories (
-    no_categorie   INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (INCREMENT BY 1),
-    libelle        VARCHAR(30) NOT NULL
+	no_categorie   INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (INCREMENT BY 1),
+	libelle        VARCHAR(30) NOT NULL
 );
 
 ALTER TABLE categories ADD constraint categorie_pk PRIMARY KEY (no_categorie);
+
+-- DROP TABLE IF EXISTS public.retraits;
+
+CREATE TABLE retraits (
+	no_article       INTEGER NOT NULL,
+	rue              VARCHAR(30) NOT NULL,
+	code_postal      VARCHAR(15) NOT NULL,
+	ville            VARCHAR(30) NOT NULL
+);
+
+ALTER TABLE retraits ADD constraint retrait_pk PRIMARY KEY  (no_article);
+
 
 -- DROP TABLE IF EXISTS public.encheres;
 
@@ -56,18 +68,6 @@ CREATE TABLE IF NOT EXISTS public.encheres (
 );
 
 ALTER TABLE encheres ADD constraint enchere_pk PRIMARY KEY (no_enchere);
-
--- DROP TABLE IF EXISTS public.retraits;
-
-CREATE TABLE retraits (
-	 no_article       INTEGER NOT NULL,
-    rue              VARCHAR(30) NOT NULL,
-    code_postal      VARCHAR(15) NOT NULL,
-    ville            VARCHAR(30) NOT NULL
-);
-
-ALTER TABLE retraits ADD constraint retrait_pk PRIMARY KEY  (no_article);
-
 -- DROP TABLE IF EXISTS public.utilisateurs;
 
 CREATE TABLE utilisateurs (
@@ -85,7 +85,7 @@ CREATE TABLE utilisateurs (
     administrateur   BIT NOT NULL
 );
 
-ALTER TABLE utilisateurs ADD constraint utilisateur_pk PRIMARY KEY (no_utilisateur);*
+ALTER TABLE utilisateurs ADD constraint utilisateur_pk PRIMARY KEY (no_utilisateur);
 ALTER TABLE utilisateurs ADD constraint utilisateur_u_pseudo UNIQUE (pseudo);
 ALTER TABLE utilisateurs ADD constraint utilisateur_u_email UNIQUE (email);
 
@@ -95,12 +95,13 @@ CREATE TABLE articles (
     no_article                    INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (INCREMENT BY 1),
     nom_article                   VARCHAR(30) NOT NULL,
     description                   VARCHAR(300) NOT NULL,
-	 date_debut_encheres           TIMESTAMP NOT NULL,
+	date_debut_encheres           TIMESTAMP NOT NULL,
     date_fin_encheres             TIMESTAMP NOT NULL,
     prix_initial                  INTEGER,
     prix_vente                    INTEGER,
     no_utilisateur                INTEGER NOT NULL,
-    no_categorie                  INTEGER NOT NULL
+    no_categorie                  INTEGER NOT NULL,
+	etat_vente					  VARCHAR(30) NOT NULL DEFAULT ('non débuté','en cours','vendu')
 );
 
 ALTER TABLE articles ADD constraint articles_pk PRIMARY KEY (no_article);
@@ -109,19 +110,19 @@ ALTER TABLE articles ADD constraint articles_pk PRIMARY KEY (no_article);
 
 -- DROP TABLE articles, categories, encheres, retraits, utilisateurs CASCADE;
 
-ALTER TABLE articles
+ALTER TABLE encheres
     ADD CONSTRAINT encheres_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES utilisateurs ( no_utilisateur )
-		ON DELETE NO ACTION 
+		ON DELETE CASCADE 
     	ON UPDATE NO ACTION;
     	
 ALTER TABLE encheres
     ADD CONSTRAINT encheres_articles_fk FOREIGN KEY ( no_article ) REFERENCES articles ( no_article )
-		ON DELETE NO ACTION 
+		ON DELETE CASCADE 
     	ON UPDATE NO ACTION;
     	
 ALTER TABLE retraits
     ADD CONSTRAINT retraits_articles_fk FOREIGN KEY ( no_article ) REFERENCES articles ( no_article )
-		ON DELETE NO ACTION 
+		ON DELETE CASCADE 
     	ON UPDATE NO ACTION;
     	
 ALTER TABLE articles
@@ -130,16 +131,27 @@ ALTER TABLE articles
     	ON UPDATE NO ACTION;
     	
 ALTER TABLE articles
-    ADD CONSTRAINT ventes_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES utilisateurs ( no_utilisateur )
+    ADD CONSTRAINT articles_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES utilisateurs ( no_utilisateur )
 		ON DELETE NO ACTION 
     	ON UPDATE NO ACTION;
 ```
 
 > En PostgreSQL, `GENERATED ALWAYS AS IDENTITY (INCREMENT BY 1)` est l'équivalent de `IDENTITY(1,1)` de SQL Server.
 
-> Choix d'avoir un `timestamp` pour les variables concernant les dates.
+Choix d'avoir un `timestamp` pour les variables concernant les dates.
 
-Afficher les tables :
+Choix des états de vente : "non débuté", "en cours", "vendu"
+
+  - si un article atteint la date de fin d'enchères sans être vendu, son état revient à "non débuté" et c'est à l'utilisateur de remettre une date ou de supprimer l'article
+  - contrainte sur les valeurs par défaut
+
+Choix pour les `ON DELETE CASCADE` :
+
+  - quand un utilisateur est supprimé, ses enchères sont également supprimées
+  - quand un article est supprimé, ses retraits sont également supprimés
+  - quand un article est supprimé, ses enchères sont également supprimés
+
+## Affichage des tables
 
 ```
 SELECT no_categorie, libelle FROM public.categories;
@@ -150,6 +162,39 @@ SELECT no_article, rue, code_postal, ville FROM public.retraits;
 
 SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM public.utilisateurs;
 
-SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM public.articles;
+SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM public.articles;
 ```
 
+## Ajout de données test
+
+```
+-- DELETE FROM public.categories;
+
+INSERT INTO public.categories(libelle) VALUES ('Art');
+INSERT INTO public.categories(libelle) VALUES ('Musique');
+INSERT INTO public.categories(libelle) VALUES ('Littérature');
+INSERT INTO public.categories(libelle) VALUES ('Jeux');
+INSERT INTO public.categories(libelle) VALUES ('Electoménager');
+INSERT INTO public.categories(libelle) VALUES ('Véhicules');
+INSERT INTO public.categories(libelle) VALUES ('Vêtements');
+INSERT INTO public.categories(libelle) VALUES ('Chaussures');
+INSERT INTO public.categories(libelle) VALUES ('Bijoux');
+
+-- DELETE FROM public.utilisateurs;
+
+INSERT INTO public.utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('lolodu33', 'çariebouette', 'lorann', 'lorann@mail.fr', 'null', '12 rue des Marguerites', '33000', 'Bordeaux', 'mdp', 10000, '1');
+INSERT INTO public.utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('tibtibdu38', 'riema', 'tibo', 'tibo@mail.fr', 'null', '852 rue des Pensées', '38000', 'Grenoble', 'mdp', 5000, '0');
+INSERT INTO public.utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('foxyfox', 'Mulder', 'Fox', 'fox@mail.fr', 'null', '4 rue des Tulipes', '0123456789', 'Washington', 'mdp', 0, '0');
+
+-- DELETE FROM public.articles;
+
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Bibelot moche mais ancien', 'Un bibelot qui est moche mais ancien donc cher', '01/12/2022  00:00:00', '24/12/2022  00:00:00', 500, 0, 3, 1, 'en cours');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('CD Céline', 'TOUS les CD jamais sortis de Céline DION, la seule et unique', '05/12/2022  00:08:00', '24/12/2022  00:08:00', 65, 0, 3, 2, 'en cours');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Collection HP', 'Collection de la saga Harry Potter', '13/12/2022  00:08:00', '24/12/2022  00:00:00', 37, 0, 3, 3, 'en cours');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Minecraft', 'Jeu vidéo bac à sable sur PC', '11/12/2022  00:08:00', '24/12/2022  00:00:00', 12, 0, 3, 4, 'en cours');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Cuisinière', 'Cuisinière à induction, 4 foyers', '11/11/2022  00:16:00', '18/11/2022  00:16:00', 250, 356, 1, 5, 'vendu');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Vélo avec petites roulettes', 'Vélo pour enfants avec les petites roulettes, un peu vieillot mais fonctionnel', '08/10/2022  00:16:00', '23/10/2022  00:16:00', 8, 13, 1, 6, 'vendu');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Vêtements confortables homme', 'Joggings, t-shirts, vestes et pulls de sport en taille L', '28/11/2022  00:16:00', '03/12/2022  00:16:00', 26, 48, 1, 7, 'vendu');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Escarpins de torture', 'Escarpins de 14cm de talon, sans plateforme, servis une fois', '26/09/2022  00:16:00', '07/12/2022  00:16:00', 25, 27, 1, 8, 'vendu');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Montre connectée pas cher', 'Montre de marque obscure, mais elle donne l heure, compte les pas et sert de minuteur', '01/01/2023  00:16:00', '05/01/2023  00:16:00', 23, 0, 1, 9, 'non débuté');
+```
