@@ -17,13 +17,11 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	@Override
 	public List<Article> listAll() {
 		List<Article> articles = new ArrayList<>();
-		System.out.println("je suis dans ArticleDAOJdbcImpl listAll ");
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			Statement stmt = cnx.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 			Article article = null;
-			System.out.println("je suis dans le try Impl");
 			while(rs.next()) {
 				article = new Article();
 				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"));
@@ -39,24 +37,16 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setCategorie(categorie);
 				article.setEtatVente(rs.getString("etat_vente"));
 				articles.add(article);
-				System.out.println("je suis dans le while rs.next");
-			}
-			System.out.println("sorti de mon while rs.next");
-			for (Article a : articles) {
-				System.out.println(a);
 			}
 			
 		} catch (Exception e) {
-			System.out.println("KOUYE ArticleDAOIPLJDOJFSbgom");
 			e.printStackTrace();
 		}
 		
 		return articles;
 	}
 	
-	private int extractUtilisateurId(Utilisateur utilisateur) {
-		int idUtilisateur = utilisateur.getNoUtilisateur();
-		return idUtilisateur;
-	}
+//	public List<Article> listBy
+	
 
 }
