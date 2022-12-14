@@ -13,10 +13,14 @@ public class Categorie {
 	public Categorie() {
 		
 	}	
+	
+	public Categorie(int noCategorie) {
+		super();
+		this.setNoCategorie(noCategorie);
+	}
 
 	public Categorie(int noCategorie, String libelle) {
 		super();
-		this.setNoCategorie(noCategorie);;
 		this.setLibelle(libelle);
 	}
 	

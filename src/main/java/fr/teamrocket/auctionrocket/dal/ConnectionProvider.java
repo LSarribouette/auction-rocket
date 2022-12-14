@@ -17,6 +17,7 @@ public class ConnectionProvider {
 		try {
 			context = new InitialContext();
 			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/postgres");
+			System.out.println("connection OK");
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Impossible d'accéder à la BDD");

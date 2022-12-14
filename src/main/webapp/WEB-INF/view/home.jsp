@@ -1,3 +1,5 @@
+<%@page import="fr.teamrocket.auctionrocket.bo.Article"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -18,6 +20,39 @@
 	<a href="<%=request.getContextPath()%>/ServletConnection">Log in / Sign up</a>
 </button>
 
+
+<table align="center">
+		<thead>
+			<tr>
+				<td>noAtricle</td>
+				<td>Descirption</td>
+			</tr>
+		</thead>
+		
+		<%
+			List<Article> articles = (List<Article>)request.getAttribute("articles");
+			if(articles == null || articles.isEmpty()) {
+		%>
+			<p>Il n'y a pas de Article</p>
+		<%
+			} else {
+		%>
+		<tbody>
+			<%
+				for(Article a : articles) {
+			%>
+			<tr>
+				<td><%=a.getNoArticle() %></td>
+				<td><%=a.getDescription() %></td>
+			</tr>
+			<%
+				}
+			%>
+		</tbody>
+		<%
+			}
+		%>
+	</table>
 
 </body>
 </html>
