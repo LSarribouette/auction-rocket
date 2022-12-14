@@ -1,7 +1,7 @@
 <div>
 	<fieldset>
 	<legend>SEARCH BLOC</legend>
-	<form action="" method="POST">
+	<form action="<%=request.getContextPath() %>/ServletSearchBloc" method="POST">
 	
 		Filtres : 
 		<input type="text" value="le nom de l'article contient">

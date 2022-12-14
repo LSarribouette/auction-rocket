@@ -49,8 +49,8 @@
 				<td><%=a.getDateDebutEnchere() %></td>
 				<td><%=a.getDateFinEnchere() %></td>
 				<td><%=a.getPrixInitial() %></td>
-				<td><%=a.getUtilisateur().getNoUtilisateur() %></td>
 				<td><%=a.getPrixVente() %></td>
+				<td><%=a.getUtilisateur().getNoUtilisateur() %></td>
 				<td><%=a.getCategorie().getNoCategorie() %></td>
 				<td><%=a.getEtatVente() %></td>
 			</tr>

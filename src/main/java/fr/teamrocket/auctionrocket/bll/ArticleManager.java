@@ -21,5 +21,9 @@ public class ArticleManager {
     public List<Article> listAll() {
         return DAOFactory.getArticleDAO().listAll();
     }
+    
+    public List<Article> listAllAuctions() {
+        return DAOFactory.getArticleDAO().listAllAuctions();
+    }
 }
 

@@ -20,9 +20,7 @@
 
 <jsp:include page="/WEB-INF/view/blocs/search-bloc.jsp"/>
 
-<jsp:include page="/WEB-INF/view/blocs/display-search-result.jsp">
-	<jsp:param value="listAll" name="db-request"/>
-</jsp:include>
+<jsp:include page="/WEB-INF/view/blocs/display-search-result.jsp"/>
 
 </body>
 </html>
