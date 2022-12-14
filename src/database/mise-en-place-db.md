@@ -197,4 +197,67 @@ INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_
 INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Vêtements confortables homme', 'Joggings, t-shirts, vestes et pulls de sport en taille L', '28/11/2022  00:16:00', '03/12/2022  00:16:00', 26, 48, 1, 7, 'vendu');
 INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Escarpins de torture', 'Escarpins de 14cm de talon, sans plateforme, servis une fois', '26/09/2022  00:16:00', '07/12/2022  00:16:00', 25, 27, 1, 8, 'vendu');
 INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Montre connectée pas cher', 'Montre de marque obscure, mais elle donne l heure, compte les pas et sert de minuteur', '01/01/2023  00:16:00', '05/01/2023  00:16:00', 23, 0, 1, 9, 'non débuté');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) 
+VALUES ('Une auction terminée', 'blop', '01/12/2022  00:00:00', '04/12/2022  00:00:00', 5, 8, 3, 1, 'vendu');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) 
+VALUES ('auction terminée', 'blop encore', '01/12/2022  00:00:00', '04/12/2022  00:00:00', 5, 8, 3, 1, 'vendu');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) 
+VALUES ('Une auction pas commencée', 'bibop', '25/12/2022  00:00:00', '29/12/2022  00:00:00', 5, 8, 3, 1, 'non débuté');
+INSERT INTO public.articles(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) 
+VALUES ('auction pas commencée', 'bibopbop', '25/12/2022  00:00:00', '29/12/2022  00:00:00', 5, 8, 3, 1, 'non débuté');
+
+--encheres en cours lorann et tibo sur l'article de foxyfox
+INSERT INTO public.encheres(no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 2, '14/12/2022  00:08:00', 70);
+INSERT INTO public.encheres(no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 2, '14/12/2022  00:09:00', 75);
+INSERT INTO public.encheres(no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 2, '14/12/2022  00:10:00', 80);
+--encheres remportées par lorann sur l'article de foxyfox
+INSERT INTO public.encheres(no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 13, '03/12/2022  00:09:00', 8);
+```
+
+## Essais pour les requêtes SELECT
+
+```
+
+--SELECT_ONGOING_USER_AUCTIONS
+SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, e.no_utilisateur  
+FROM articles a
+INNER JOIN encheres e ON a.no_article = e.no_article
+WHERE a.no_utilisateur !=1
+AND a.etat_vente ='en cours'
+AND e.no_utilisateur =1;
+
+--SELECT_WON_USER_AUCTIONS
+SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, e.no_utilisateur  
+FROM articles a
+INNER JOIN encheres e ON a.no_article = e.no_article
+WHERE a.no_utilisateur !=1
+AND a.etat_vente ='vendu'
+AND e.no_utilisateur =1;
+
+
+--SELECT_ALL_SALES
+SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
+FROM articles a
+WHERE a.no_utilisateur =3;
+
+--SELECT_ONGOING_USER_SALES
+SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
+FROM articles a
+WHERE a.no_utilisateur =3
+AND a.etat_vente ='en cours';
+
+--SELECT_UNSTARTED_USER_SALES
+SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
+FROM articles a
+WHERE a.no_utilisateur =3
+AND a.etat_vente ='non débuté';
+
+--SELECT_ENDED_USER_SALES
+SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
+FROM articles a
+WHERE a.no_utilisateur =3
+AND a.etat_vente ='vendu';
+
+SELECT * FROM articles;
+SELECT * FROM encheres;
 ```

@@ -12,7 +12,50 @@ import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 public class ArticleDAOJdbcImpl implements ArticleDAO {
 
-	private final static String SELECT_ALL="SELECT * FROM articles";
+	private final static String SELECT_ALL="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM public.articles;";
+	
+	private final static String SELECT_ALL_AUCTIONS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente"
+			+ "FROM articles a"
+			+ "WHERE a.no_utilisateur !=?;";
+	
+	private final static String SELECT_ALL_ONGOING_AUCTIONS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente"
+			+ "FROM articles a"
+			+ "WHERE a.no_utilisateur !=?"
+			+ "AND a.etat_vente ='en cours';";
+	
+	private final static String SELECT_ONGOING_USER_AUCTIONS="SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, e.no_utilisateur "
+			+ "FROM articles a"
+			+ "INNER JOIN encheres e ON a.no_article = e.no_article"
+			+ "WHERE a.no_utilisateur !=?"
+			+ "AND a.etat_vente ='en cours'"
+			+ "AND e.no_utilisateur =?;";
+
+	private final static String SELECT_WON_USER_AUCTIONS="SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, e.no_utilisateur "
+			+ "FROM articles a"
+			+ "INNER JOIN encheres e ON a.no_article = e.no_article"
+			+ "WHERE a.no_utilisateur !=?"
+			+ "AND a.etat_vente ='vendu"
+			+ "AND e.no_utilisateur =?;";
+	
+	private final static String SELECT_ALL_SALES="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente"
+			+ "FROM articles a"
+			+ "WHERE a.no_utilisateur =?;";
+	
+	private final static String SELECT_ONGOING_USER_SALES="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente"
+			+ "FROM articles a"
+			+ "WHERE a.no_utilisateur =?"
+			+ "AND a.etat_vente ='en cours;";
+	
+	private final static String SELECT_UNSTARTED_USER_SALES="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente"
+			+ "FROM articles a"
+			+ "WHERE a.no_utilisateur =?"
+			+ "AND a.etat_vente ='non débuté';";
+	
+	private final static String SELECT_ENDED_USER_SALES="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente"
+			+ "FROM articles a"
+			+ "WHERE a.no_utilisateur =?"
+			+ "AND a.etat_vente ='vendu';";
+			
 	
 	@Override
 	public List<Article> listAll() {
@@ -45,8 +88,43 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		
 		return articles;
 	}
-	
-//	public List<Article> listBy
+
+	@Override
+	public List<Article> listAllOngoingAuctions() {
+		// TODO 
+		return null;
+	}
+
+	@Override
+	public List<Article> listOngoingUserAuctions() {
+		// TODO 
+		return null;
+	}
+
+	@Override
+	public List<Article> listWonUserAuctions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Article> listOngoinUserSales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Article> listUnstartedUserSales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Article> listEndedUserSales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

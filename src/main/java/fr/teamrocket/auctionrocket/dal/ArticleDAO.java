@@ -8,4 +8,22 @@ public interface ArticleDAO {
 
 	public abstract List<Article> listAll();
 	
+//	filtrer ACHAT/enchères ouvertes
+	public abstract List<Article> listAllOngoingAuctions();
+	
+//	Achat/mes encheres en cours
+	public abstract List<Article> listOngoingUserAuctions();	
+	
+//	Achat/mes encheres remportées
+	public abstract List<Article> listWonUserAuctions();
+	
+//	VENTE/mes ventes enc ours
+	public abstract List<Article> listOngoinUserSales();
+	
+//	VENTE/ventes non débuté
+	public abstract List<Article> listUnstartedUserSales();
+	
+//	VENTE/ventes terminées
+	public abstract List<Article> listEndedUserSales();
+
 }
