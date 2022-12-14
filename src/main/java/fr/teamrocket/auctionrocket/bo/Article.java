@@ -12,21 +12,24 @@ public class Article {
 	private int prixVente;
 	private Utilisateur utilisateur;
 	private Categorie categorie;
+	private String etatVente;
 	
 	@Override
 	public String toString() {
 		return "Article [getNoArticle()=" + getNoArticle() + ", getNomArticle()=" + getNomArticle()
 				+ ", getDescription()=" + getDescription() + ", getDateDebutEnchere()=" + getDateDebutEnchere()
 				+ ", getDateFinEnchere()=" + getDateFinEnchere() + ", getPrixInitial()=" + getPrixInitial()
-				+ ", getPrixVente()=" + getPrixVente() + "]";
+				+ ", getPrixVente()=" + getPrixVente() + ", getUtilisateur()=" + getUtilisateur() + ", getCategorie()="
+				+ getCategorie() + ", getEtatVente()=" + getEtatVente() + "]";
 	}
+	
 	
 	public Article() {
 		
 	}
 	
 	public Article(int noArticle, String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
-			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie) {
+			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente) {
 		this.setNoArticle(noArticle);
 		this.setNomArticle(nomArticle);
 		this.setDescription(description); 
@@ -36,6 +39,7 @@ public class Article {
 		this.setPrixVente(prixVente);
 		this.setUtilisateur(utilisateur);
 		this.setCategorie(categorie);
+		this.setEtatVente(etatVente);
 	}
 
 	public int getNoArticle() {
@@ -92,9 +96,16 @@ public class Article {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
-	
-	
+
+	public String getEtatVente() {
+		return etatVente;
+	}
+
+	public void setEtatVente(String etatVente) {
+		this.etatVente = etatVente;
+	}
+
+
 	
 	
 }
