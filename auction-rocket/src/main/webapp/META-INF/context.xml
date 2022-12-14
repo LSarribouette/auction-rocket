@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource
+		name="jdbc/postgres"
+		
+		driverClassName="org.postgresql.Driver"
+		type="javax.sql.DataSource"
+		
+		url="jdbc:postgresql://localhost:5432/auction_rocket_db"
+		
+		username="postgres"
+		password="1234"
+		
+		maxTotal="100"
+		maxIdle="30"
+		maxWaitMillis="10000"
+	/>
+</Context>
