@@ -46,7 +46,7 @@ public class ServletSearchBloc extends HttpServlet {
         
 		if(request.getParameter("radio-action")!=null && request.getParameter("radio-action").toString().equals("buying")) {
 			List<Article> articles = ArticleManager.getInstance().listAllAuctions();
-	        request.setAttribute("articles", articles);  
+	        request.setAttribute("articles", articles);
 	    	
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 			rd.forward(request, response);

@@ -11,41 +11,39 @@ public class Utilisateur {
 	private String codePostal;
 	private String ville;
 	private String mdp;
-	private int credit;
-	private boolean administrateur;
+	private int credit = 0;
+	private int administrateur = 0;
 	
 	@Override
 	public String toString() {
 		return "Utilisateur [getNoUtilisateur()=" + getNoUtilisateur() + ", getPseudo()=" + getPseudo() + ", getNom()="
 				+ getNom() + ", getPrenom()=" + getPrenom() + ", getEmail()=" + getEmail() + ", getTelephone()="
 				+ getTelephone() + ", getRue()=" + getRue() + ", getCodePostal()=" + getCodePostal() + ", getVille()="
-				+ getVille() + ", getMdp()=" + getMdp() + ", getCredit()=" + getCredit() + ", isAdministrateur()="
-				+ isAdministrateur() + "]";
+				+ getVille() + ", getMdp()=" + getMdp() + ", getCredit()=" + getCredit() + ", getAdministrateur()="
+				+ getAdministrateur() + "]";
 	}
-
+	
 	public Utilisateur() {
 		
 	}
 	
 	public Utilisateur(int noUtilisateur) {
-		super();
-		this.noUtilisateur=noUtilisateur;
+		this.setNoUtilisateur(noUtilisateur);
 	}
 	
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String mdp, int credit, boolean administrateur) {
-		super();
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostal = codePostal;
-		this.ville = ville;
-		this.mdp = mdp;
-		this.credit = credit;
-		this.administrateur = administrateur;
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String mdp, int credit, int administrateur) {
+		this.setPseudo(pseudo);
+		this.setNom(prenom);
+		this.setPrenom(prenom);
+		this.setEmail(email);
+		this.setTelephone(telephone);
+		this.setRue(rue);
+		this.setCodePostal(codePostal);
+		this.setVille(ville);
+		this.setMdp(mdp);
+		this.setCredit(credit);
+		this.setAdministrateur(administrateur);	
 	}
 	
 	public int getNoUtilisateur() {
@@ -114,13 +112,16 @@ public class Utilisateur {
 	public void setCredit(int credit) {
 		this.credit = credit;
 	}
-	public boolean isAdministrateur() {
-		return administrateur;
-	}
-	public void setAdministrateur(boolean administrateur) {
+//	public boolean isAdministrateur() {
+//		return administrateur;
+//	}
+	public void setAdministrateur(int administrateur) {
 		this.administrateur = administrateur;
 	}
-	
-	
+
+	public int getAdministrateur() {
+		return administrateur;
+	}
+
 
 }
