@@ -75,14 +75,14 @@ CREATE TABLE utilisateurs (
     pseudo           VARCHAR(30) NOT NULL,
     nom              VARCHAR(30) NOT NULL,
     prenom           VARCHAR(30) NOT NULL,
-    email            VARCHAR(20) NOT NULL,
+    email            VARCHAR(100) NOT NULL,
     telephone        VARCHAR(15),
     rue              VARCHAR(30) NOT NULL,
     code_postal      VARCHAR(10) NOT NULL,
     ville            VARCHAR(30) NOT NULL,
     mot_de_passe     VARCHAR(30) NOT NULL,
-    credit           INTEGER NOT NULL,
-    administrateur   BIT NOT NULL
+    credit           INTEGER NOT NULL DEFAULT 0,
+    administrateur   BIT NOT NULL DEFAULT '0'
 );
 
 ALTER TABLE utilisateurs ADD constraint utilisateur_pk PRIMARY KEY (no_utilisateur);
@@ -95,13 +95,13 @@ CREATE TABLE articles (
     no_article                    INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (INCREMENT BY 1),
     nom_article                   VARCHAR(30) NOT NULL,
     description                   VARCHAR(300) NOT NULL,
-	date_debut_encheres           TIMESTAMP NOT NULL,
+	 date_debut_encheres           TIMESTAMP NOT NULL,
     date_fin_encheres             TIMESTAMP NOT NULL,
     prix_initial                  INTEGER,
     prix_vente                    INTEGER,
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL,
-	etat_vente					  VARCHAR(30) NOT NULL DEFAULT ('non débuté','en cours','vendu')
+	 etat_vente					 		VARCHAR(30) NOT NULL DEFAULT ('non débuté','en cours','vendu')
 );
 
 ALTER TABLE articles ADD constraint articles_pk PRIMARY KEY (no_article);
@@ -150,6 +150,10 @@ Choix pour les `ON DELETE CASCADE` :
   - quand un utilisateur est supprimé, ses enchères sont également supprimées
   - quand un article est supprimé, ses retraits sont également supprimés
   - quand un article est supprimé, ses enchères sont également supprimés
+
+Choix de valeurs par défaut dans `utilisateurs` avec credit = 0 et administrateur = 0.
+
+Choix de 100 caractères autorisés pour l'email d'un utilisateur.
 
 ## Affichage des tables
 
@@ -214,50 +218,38 @@ INSERT INTO public.encheres(no_utilisateur, no_article, date_enchere, montant_en
 INSERT INTO public.encheres(no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 13, '03/12/2022  00:09:00', 8);
 ```
 
-## Essais pour les requêtes SELECT
+## Filtres pour les articles
+
+```
+-- SELECT_ALL = 
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles;
+
+-- SELECT_ALL_AUCTIONS = 
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur !=?;
+
+-- SELECT_ALL_ONGOING_AUCTIONS = 
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur !=?  AND etat_vente ='en cours';
+
+-- SELECT_ONGOING_USER_AUCTIONS = 
+		SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, u.pseudo FROM articles a INNER JOIN encheres e ON a.no_article = e.no_article INNER JOIN utilisateurs u ON e.no_utilisateur = u.no_utilisateur WHERE a.no_utilisateur !=? AND a.etat_vente ='en cours' AND e.no_utilisateur =?;
+
+-- SELECT_WON_USER_AUCTIONS = 
+		SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, u.pseudo FROM articles a INNER JOIN encheres e ON a.no_article = e.no_article INNER JOIN utilisateurs u ON e.no_utilisateur = u.no_utilisateur WHERE a.no_utilisateur !=? AND a.etat_vente ='vendu' AND e.no_utilisateur =?;
+
+-- SELECT_ALL_SALES =
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur =?;
+
+-- SELECT_ONGOING_USER_SALES = 
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur =? AND etat_vente ='en cours';
+
+-- SELECT_UNSTARTED_USER_SALES = 
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur =? AND etat_vente ='non débuté';
+
+-- SELECT_ENDED_USER_SALES = 
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur =? AND etat_vente ='vendu';
 
 ```
 
---SELECT_ONGOING_USER_AUCTIONS
-SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, e.no_utilisateur  
-FROM articles a
-INNER JOIN encheres e ON a.no_article = e.no_article
-WHERE a.no_utilisateur !=1
-AND a.etat_vente ='en cours'
-AND e.no_utilisateur =1;
+Choix de garder une clause `WHERE` redondante dans `SELECT_ONGOING_USER_AUCTIONS` et `SELECT_WON_USER_AUCTIONS` où on précise à la fois le nom de l'utilisateur qui vend l'article et celui qui choisit d'enchérir (ici, l'utilisateur connecté), ainsi que l'état de vente ('en cours' ou 'vendu').
 
---SELECT_WON_USER_AUCTIONS
-SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie, etat_vente, e.no_utilisateur  
-FROM articles a
-INNER JOIN encheres e ON a.no_article = e.no_article
-WHERE a.no_utilisateur !=1
-AND a.etat_vente ='vendu'
-AND e.no_utilisateur =1;
-
-
---SELECT_ALL_SALES
-SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
-FROM articles a
-WHERE a.no_utilisateur =3;
-
---SELECT_ONGOING_USER_SALES
-SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
-FROM articles a
-WHERE a.no_utilisateur =3
-AND a.etat_vente ='en cours';
-
---SELECT_UNSTARTED_USER_SALES
-SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
-FROM articles a
-WHERE a.no_utilisateur =3
-AND a.etat_vente ='non débuté';
-
---SELECT_ENDED_USER_SALES
-SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente  
-FROM articles a
-WHERE a.no_utilisateur =3
-AND a.etat_vente ='vendu';
-
-SELECT * FROM articles;
-SELECT * FROM encheres;
-```
+Choix d'ajouter un attribut `utilisateurEcherisseur` à l'objet `Article` dans la BO : contournement de la difficulté de transformer la liaison de trois tables SQL.

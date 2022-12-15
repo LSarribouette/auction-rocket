@@ -18,9 +18,9 @@
 	<a href="<%=request.getContextPath()%>/ServletConnection">Log in / Sign up</a>
 </button>
 
-<jsp:include page="/WEB-INF/view/blocs/search-bloc.jsp"/>
+<jsp:include page="/WEB-INF/view/blocs/search.jsp"/>
 
-<jsp:include page="/WEB-INF/view/blocs/display-search-result.jsp"/>
+<jsp:include page="/WEB-INF/view/blocs/display-result.jsp"/> <!--  TODO param pour si pas servlet, listALL ?? -->
 
 </body>
 </html>

@@ -6,13 +6,13 @@ import fr.teamrocket.auctionrocket.bo.Article;
 
 public interface ArticleDAO {
 
-//	filtrer TOUT enfin rien enfin voilà quoi
+//	TOUT
 	public abstract List<Article> listAll();
 	
-//	filtrer ACHAT/tout
+//	ACHAT
 	public abstract List<Article> listAllAuctions();
 	
-//	filtrer ACHAT/enchères ouvertes
+//	ACHAT/enchères ouvertes
 	public abstract List<Article> listAllOngoingAuctions();
 	
 //	Achat/mes encheres en cours
@@ -20,6 +20,9 @@ public interface ArticleDAO {
 	
 //	Achat/mes encheres remportées
 	public abstract List<Article> listWonUserAuctions();
+	
+//	VENTE
+	public abstract List<Article> listAllSales();
 	
 //	VENTE/mes ventes enc ours
 	public abstract List<Article> listOngoinUserSales();

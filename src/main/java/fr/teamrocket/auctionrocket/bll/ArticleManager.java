@@ -25,5 +25,33 @@ public class ArticleManager {
     public List<Article> listAllAuctions() {
         return DAOFactory.getArticleDAO().listAllAuctions();
     }
+    
+    public List<Article> listAllOngoingAuctions() {
+    	return DAOFactory.getArticleDAO().listAllOngoingAuctions();
+    }
+    
+    public List<Article> listOngoingUserAuctions() {
+    	return DAOFactory.getArticleDAO().listOngoingUserAuctions();
+    }
+    
+    public List<Article> listWonUserAuctions() {
+    	return DAOFactory.getArticleDAO().listWonUserAuctions();
+    }
+
+    public List<Article> listAllSales() {
+    	return DAOFactory.getArticleDAO().listAllSales();
+    }
+    
+    public List<Article> listOngoinUserSales() {
+    	return DAOFactory.getArticleDAO().listOngoinUserSales();
+    }
+    
+    public List<Article> listUnstartedUserSales() {
+    	return DAOFactory.getArticleDAO().listUnstartedUserSales();
+    }
+    
+    public List<Article> listEndedUserSales() {
+    	return DAOFactory.getArticleDAO().listEndedUserSales();
+    }
 }
 

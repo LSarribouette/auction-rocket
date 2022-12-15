@@ -13,17 +13,16 @@ public class Article {
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private String etatVente;
+	private String utilisateurEncherisseur;
 	
 	@Override
 	public String toString() {
-		return "Article [getNoArticle()=" + getNoArticle() + ", getNomArticle()=" + getNomArticle()
-				+ ", getDescription()=" + getDescription() + ", getDateDebutEnchere()=" + getDateDebutEnchere()
-				+ ", getDateFinEnchere()=" + getDateFinEnchere() + ", getPrixInitial()=" + getPrixInitial()
-				+ ", getPrixVente()=" + getPrixVente() + ", getUtilisateur()=" + getUtilisateur() + ", getCategorie()="
-				+ getCategorie() + ", getEtatVente()=" + getEtatVente() + "]";
+		return "Article [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixInitial="
+				+ prixInitial + ", prixVente=" + prixVente + ", utilisateur=" + utilisateur + ", categorie=" + categorie
+				+ ", etatVente=" + etatVente + ", utilisateurEncherisseur=" + utilisateurEncherisseur + "]";
 	}
-	
-	
+
 	public Article() {
 		
 	}
@@ -40,6 +39,12 @@ public class Article {
 		this.setUtilisateur(utilisateur);
 		this.setCategorie(categorie);
 		this.setEtatVente(etatVente);
+	}
+	
+	public Article(int noArticle, String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
+			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente, String utilisateurEncherisseur) {
+		this();
+		this.setUtilisateurEncherisseur(utilisateurEncherisseur);
 	}
 
 	public int getNoArticle() {
@@ -105,7 +110,12 @@ public class Article {
 		this.etatVente = etatVente;
 	}
 
+	public String getUtilisateurEncherisseur() {
+		return utilisateurEncherisseur;
+	}
 
-	
-	
+	public void setUtilisateurEncherisseur(String utilisateurEncherisseur) {
+		this.utilisateurEncherisseur = utilisateurEncherisseur;
+	}
+
 }
