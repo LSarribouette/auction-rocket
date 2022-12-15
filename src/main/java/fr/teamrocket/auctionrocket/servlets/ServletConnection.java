@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.teamrocket.auctionrocket.bll.UtilisateurManager;
+import fr.teamrocket.auctionrocket.bo.Utilisateur;
+
 
 /**
  * Servlet implementation class ServletConnection
@@ -50,8 +53,18 @@ public class ServletConnection extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+//		reception login form, check user ok in DB, IF OK we go create session and  -> /auction/home
+		String pseudo = request.getParameter("pseudo");
+		String pwd = request.getParameter("pwd");
+		System.out.println(pseudo + " - " + pwd);
+		Utilisateur utilisateur = UtilisateurManager.getInstance().fetchUtilisateurByPseudoAndMdp(request.getParameter("pseudo"), request.getParameter("pwd"));
+		System.out.println(utilisateur);
+		if(utilisateur!=null) {
+			System.out.println("user connected ! :)");
+//			CREATE SESSION AVEC LOBJET USER
+		} else {
+			System.out.println("user unknow ! :(");
+		}
 	}
 
 }

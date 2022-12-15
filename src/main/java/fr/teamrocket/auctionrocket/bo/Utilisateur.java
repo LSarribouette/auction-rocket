@@ -34,7 +34,7 @@ public class Utilisateur {
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String mdp, int credit, int administrateur) {
 		this.setPseudo(pseudo);
-		this.setNom(prenom);
+		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setEmail(email);
 		this.setTelephone(telephone);
@@ -46,6 +46,12 @@ public class Utilisateur {
 		this.setAdministrateur(administrateur);	
 	}
 	
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String mdp, int credit, int administrateur) {
+		this();
+		this.setNoUtilisateur(noUtilisateur);
+	}
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}

@@ -20,9 +20,16 @@ create account ? ->
 	<a href="<%=request.getContextPath()%>/connection/signup"> Sign up</a>
 </button>
 
-<button>
-	<a href="<%=request.getContextPath()%>/auction/home"> IF OK</a>
-</button>
+<fieldset>
+	<legend>LOGIN</legend>
+	<form method="post" action="<%=request.getContextPath()%>/connection/login">
+		<label for="pseudo">pseudo</label>
+		<input type="text" id="pseudo" name="pseudo" required>
+		<label for="pwd">Mot De Passe</label>
+		<input type="password" id="pwd" name="pwd" required>
+		<input type="submit">
+	</form>
+</fieldset>
 
 
 

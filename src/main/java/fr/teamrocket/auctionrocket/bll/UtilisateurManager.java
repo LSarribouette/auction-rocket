@@ -26,5 +26,8 @@ public class UtilisateurManager {
 		return DAOFactory.getUtilisateurDAO().fetchUtilisateurById();
 	}
 	
+	public Utilisateur fetchUtilisateurByPseudoAndMdp(String pseudo, String pwd) {
+		return DAOFactory.getUtilisateurDAO().fetchUtilisateurByPseudoAndMdp(pseudo, pwd);
+	}
 
 }
