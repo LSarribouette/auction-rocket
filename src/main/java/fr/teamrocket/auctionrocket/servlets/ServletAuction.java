@@ -1,6 +1,7 @@
 package fr.teamrocket.auctionrocket.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.teamrocket.auctionrocket.bll.ArticleManager;
+import fr.teamrocket.auctionrocket.bo.Article;
 import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 /**
@@ -31,7 +34,13 @@ public class ServletAuction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
+//		Si j'arrive ici, je suis connectée et donc je vois les filtres ACHATS/VENTES --> par défaut, je veux voir la liste ACHATS
+//			= Je veux pas listAll par défaut, mais bien listAllAuctions 		
+		List<Article> articles = ArticleManager.getInstance().listAllAuctions();
+        request.setAttribute("articles", articles);     
+
+		request.setAttribute("buying", "koshed"); 
+		
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
 		request.setAttribute("currentPseudo", utilisateur.getPseudo());

@@ -39,20 +39,7 @@ public class ServletSearch extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ServletSearch doGet putain de sa r");
-////		TODO review this doGet with listAll inited from home.jsp
-//		List<Article> articles = new ArrayList<>();
-//		if(request.getParameter("search-filter")!= null || request.getParameter("search-filter").equals("home-listAll")) {
-//			System.out.println("listAll requested from home.jsp");
-//			
-//			articles = ArticleManager.getInstance().listAll();
-//	        request.setAttribute("articles", articles);
-//	        
-////	        est ce que je veux vraiment aller sur auction-home.jsp depuis le doGet de ServletSearch ?
-//	        
-//			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
-//			rd.forward(request, response);
-//		}
-		
+	
 	}
 
 	/**
@@ -65,35 +52,33 @@ public class ServletSearch extends HttpServlet {
 		
 		List<Article> articles = new ArrayList<>();
 		
-		if (session == null) {
-			System.out.println("submit d'une recherche sans session");
-			
-			articles = ArticleManager.getInstance().listAll();
-	        request.setAttribute("articles", articles);
-	        
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
-			rd.forward(request, response);
-			
-		} else if (session != null) {
-			
+		// si j'arrive ici, je suis connectée et donc je vois les filtres ACHATS/VENTES --> par défaut, je veux voir les ACHATS
+		
+		if(session.getAttribute("current_user") != null) { // TODO ce if serait mieux en try/catch ???
 			// ACHAT
-			if(request.getParameter("radio-action")!=null && request.getParameter("radio-action").toString().equals("buying")) {
-				System.out.println("radio bouton sélectionné : " + request.getParameter("radio-action"));
+			if(request.getParameter("radio-action")!=null && request.getParameter("radio-action").equals("buying")) {
+				System.out.println("radio bouton sélectionné : " + request.getParameter("radio-action")); //TODO supp
+				request.setAttribute("buying", "koshed"); 
 				
 				if (request.getParameter("all-ongoing-auctions")!=null) {
-					System.out.println("case cochée: all-ongoing-auctions");
+					request.setAttribute("all-ongoing-auctions", "koshed");  
+					System.out.println("case cochée: all-ongoing-auctions"); //TODO supp
 					List<Article> articlesAllOngoingAuctions = ArticleManager.getInstance().listAllOngoingAuctions();
 					articles.addAll(articlesAllOngoingAuctions);
 				}
 				
 				if (request.getParameter("ongoing-user-auctions")!=null) {
-					System.out.println("case cochée: ongoing-user-auctions");
+					request.setAttribute("ongoing-user-auctions", "koshed");  
+					System.out.println("case ongoing-user-auctions stays " + request.getAttribute("ongoing-user-auctions")); //TODO supp
 					List<Article> articlesOngoingUserAuctions = ArticleManager.getInstance().listOngoingUserAuctions();
 					articles.addAll(articlesOngoingUserAuctions);
+					
+					
 				}
 				
 				if (request.getParameter("won-user-auctions")!=null) {
-					System.out.println("case cochée: won-user-auctions");
+					request.setAttribute("won-user-auctions", "koshed");  
+					System.out.println("case cochée: won-user-auctions"); //TODO supp
 					List<Article> articlesWonUserAuctions = ArticleManager.getInstance().listWonUserAuctions();
 					articles.addAll(articlesWonUserAuctions);
 				}
@@ -108,23 +93,27 @@ public class ServletSearch extends HttpServlet {
 				rd.forward(request, response);
 				
 			// MES VENTES
-			} else if(request.getParameter("radio-action")!=null && request.getParameter("radio-action").toString().equals("sales")) {
-				System.out.println("radio bouton sélectionné : " + request.getParameter("radio-action"));
+			} else if(request.getParameter("radio-action")!=null && request.getParameter("radio-action").equals("sales")) {
+				System.out.println("radio bouton sélectionné : " + request.getParameter("radio-action")); //TODO supp
+				request.setAttribute("sales", "koshed"); 
 				
 				if (request.getParameter("ongoing-user-sales")!=null) {
-					System.out.println("case cochée: ongoing-user-sales");
+					request.setAttribute("ongoing-user-sales", "koshed");  
+					System.out.println("case cochée: ongoing-user-sales"); //TODO supp
 					List<Article> articlesOngoingUserSales = ArticleManager.getInstance().listOngoinUserSales();
 					articles.addAll(articlesOngoingUserSales);
 				}
 				
 				if (request.getParameter("unstarted-user-sales")!=null) {
-					System.out.println("case cochée: unstarted-user-sales");
+					request.setAttribute("unstarted-user-sales", "koshed");  
+					System.out.println("case cochée: unstarted-user-sales"); //TODO supp
 					List<Article> articlesUnstartedUserSales = ArticleManager.getInstance().listUnstartedUserSales();
 					articles.addAll(articlesUnstartedUserSales);
 				}
 				
 				if (request.getParameter("ended-user-sales")!=null) {
-					System.out.println("case cochée: ended-user-sales");
+					request.setAttribute("ended-user-sales", "koshed"); 
+					System.out.println("case cochée: ended-user-sales"); //TODO supp
 					List<Article> articlesEndedUserSales = ArticleManager.getInstance().listEndedUserSales();
 					articles.addAll(articlesEndedUserSales);
 				}
@@ -139,9 +128,9 @@ public class ServletSearch extends HttpServlet {
 				rd.forward(request, response);
 				
 			
-			// AUCUN FILTRE
+			// AUCUN FILTRE : ne devrait pas arriver mais bon...
 			} else {
-				System.out.println("Aucun filtre sélectionné");
+				System.out.println("Aucun filtre sélectionné"); //TODO supp
 				
 				articles = ArticleManager.getInstance().listAll();
 		        request.setAttribute("articles", articles);
@@ -151,5 +140,4 @@ public class ServletSearch extends HttpServlet {
 			}
 		}
 	}
-
 }

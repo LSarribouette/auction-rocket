@@ -23,17 +23,10 @@
 		
 				
 		<%
-// 			if(request.getParameter("isConnected")!=null && request.getParameter("isConnected").toString().equals("false")){
-// 				List<Article> articles = ArticleManager.getInstance().listAll();
-// 		        request.setAttribute("articles", articles);
-		        
-// 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
-// 				rd.forward(request, response);
-			
-				List<Article> articles = (List<Article>)request.getAttribute("articles");
-				if(articles == null || articles.isEmpty()) {
+			List<Article> articles = (List<Article>)request.getAttribute("articles");
+			if(articles == null || articles.isEmpty()) {
 		%>
-			<p>Il n'y a pas d"articles.</p>
+				<p>Il n'y a pas d"articles.</p>
 		<%
 			} else {
 		%>
