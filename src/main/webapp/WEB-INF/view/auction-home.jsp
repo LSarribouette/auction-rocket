@@ -14,14 +14,17 @@
 
 <h1>AUCTION HOME user is connected</h1>
 
-	<jsp:include page="/WEB-INF/view/blocs/search.jsp">
-		<jsp:param value="true" name="isConnected"/>
-		<jsp:param value="auction-home.jsp" name="from"/>
-	</jsp:include>
-	<hr>
-	<jsp:include page="/WEB-INF/view/blocs/display-result.jsp">
-		<jsp:param value="auction-home.jsp" name="from"/>
-	</jsp:include>
+<jsp:include page="/WEB-INF/view/blocs/search.jsp">
+	<jsp:param value="true" name="isConnected"/>
+	<jsp:param value="auction-home.jsp" name="from"/>
+</jsp:include>
+
+<hr>
+
+<jsp:include page="/WEB-INF/view/blocs/display-result.jsp">
+	<jsp:param value="true" name="isConnected"/>
+	<jsp:param value="auction-home.jsp" name="from"/>
+</jsp:include>
 
 
 </body>

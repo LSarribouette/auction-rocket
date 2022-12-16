@@ -3,16 +3,8 @@
 
 <fieldset>
 	<legend>DISPLAY SEARCH RESULT</legend>
-	<h4>
-		RECUP LISTE ARTICLE WITH FILTERS<br>
-		-> fetch, select by, select where 
-	</h4>
-	<%if(request.getAttribute("target")!=null && request.getAttribute("target").toString().equals("mysales")){%>
-	<h2>FILTER -> MY SALES !!!</h2>
-	<%} %>
 	
-	<fieldset>
-<legend>TEST DB <%=request.getParameter("db-request") %></legend>
+	<h4>TEST DB avec utilisateur connecté = <%=request.getParameter("isConnected") %></h4>
 
 <table align="center">
 		<thead style="text-align: center; text-decoration: underline;">
@@ -30,11 +22,19 @@
 			</tr>
 		</thead>
 		
+				
 		<%
-			List<Article> articles = (List<Article>)request.getAttribute("articles");
-			if(articles == null || articles.isEmpty()) {
+// 			if(request.getParameter("isConnected")!=null && request.getParameter("isConnected").toString().equals("false")){
+// 				List<Article> articles = ArticleManager.getInstance().listAll();
+// 		        request.setAttribute("articles", articles);
+		        
+// 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
+// 				rd.forward(request, response);
+			
+				List<Article> articles = (List<Article>)request.getAttribute("articles");
+				if(articles == null || articles.isEmpty()) {
 		%>
-			<p>Il n'y a pas de Article</p>
+			<p>Il n'y a pas d"articles.</p>
 		<%
 			} else {
 		%>
