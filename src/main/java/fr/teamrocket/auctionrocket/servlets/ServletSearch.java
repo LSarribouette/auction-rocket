@@ -19,7 +19,7 @@ import fr.teamrocket.auctionrocket.bo.Article;
 /**
  * Servlet implementation class ServletSearch
  */
-@WebServlet("/ServletSearch")
+@WebServlet({"/ServletSearch", "rechercher"})
 public class ServletSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,13 +30,15 @@ public class ServletSearch extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    
 
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ServletSearch doGet");
+		System.out.println("ServletSearch doGet putain de sa r");
 ////		TODO review this doGet with listAll inited from home.jsp
 //		List<Article> articles = new ArrayList<>();
 //		if(request.getParameter("search-filter")!= null || request.getParameter("search-filter").equals("home-listAll")) {
@@ -59,6 +61,8 @@ public class ServletSearch extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
 		HttpSession session = request.getSession(false);
+		System.out.println(session);
+		
 		List<Article> articles = new ArrayList<>();
 		
 		if (session == null) {
