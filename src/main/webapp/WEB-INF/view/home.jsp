@@ -7,20 +7,16 @@
 <title>AUCTION ROCKET - Homepage</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/view/blocs/header.jsp">
-		<jsp:param value="false" name="isConnected"/>
-		<jsp:param value="home.jsp" name="from"/>
-</jsp:include>
+
+<jsp:include page="/WEB-INF/view/blocs/header.jsp"/>
 	
-<h1>THIS IS HOME.JSP</h1>
+<h1>Accueil</h1>
 
 <button>
 	<a href="<%=request.getContextPath()%>/connection/login">Log in / Sign up</a>
 </button>
 
 <jsp:include page="/WEB-INF/view/blocs/search.jsp"/>
-
-<hr>
 
 <jsp:include page="/WEB-INF/view/blocs/display-result.jsp"/>
 
