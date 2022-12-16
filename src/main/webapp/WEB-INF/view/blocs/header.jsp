@@ -11,7 +11,7 @@
 		<%} else if (session.getAttribute("current_user") == null){ %>
 			href="<%=request.getContextPath() %>/home">
 		<%} %>
-		<img src="<%=request.getContextPath() %>/media/logo-team-rocket-2.png" alt="LOGO Pokemon Team Rocket"> 
+		<img height="100px" width="100px" src="<%=request.getContextPath() %>/media/logo-team-rocket-2.png" alt="LOGO Pokemon Team Rocket"> 
 	</a><br>
 
 	<%if (session.getAttribute("current_user") != null) {%>

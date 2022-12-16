@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ServletUserProfile
  */
-@WebServlet({"/ServletUserProfile", "/user/myprofile"})
+@WebServlet({"/ServletUserProfile", "/user/myprofile", "/user/editprofile", "/user/deleteprofile"})
 public class ServletUserProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,6 +30,12 @@ public class ServletUserProfile extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getServletPath().equals("/user/myprofile")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/user-profile.jsp");
+			rd.forward(request, response);	
+		} else if(request.getServletPath().equals("/user/editprofile")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/user-edit-profile.jsp");
+			rd.forward(request, response);	
+		} else if(request.getServletPath().equals("/user/deleteprofile")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/user-delete-profile.jsp");
 			rd.forward(request, response);	
 		}
 	}
