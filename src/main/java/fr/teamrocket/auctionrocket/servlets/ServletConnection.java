@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.teamrocket.auctionrocket.bll.UtilisateurManager;
 import fr.teamrocket.auctionrocket.bo.Utilisateur;
@@ -36,12 +37,11 @@ public class ServletConnection extends HttpServlet {
 
 //		if URL
 			if(request.getServletPath().equals("/connection/signup")) {
-				request.setAttribute("requestType", "signup");
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/connection-signup.jsp");
 				rd.forward(request, response);
 			}  else if(request.getServletPath().equals("/connection/logout")) {
 //				TODO : session destroy
-				System.out.println("THE USER HAS TO BE DISCONNECTED");
+				System.out.println("THE USER HAS TO BE DISCONNECTED HERE -> /connection/logout");
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 				rd.forward(request, response);
 			}
@@ -61,9 +61,17 @@ public class ServletConnection extends HttpServlet {
 		System.out.println(utilisateur);
 		if(utilisateur!=null) {
 			System.out.println("user connected ! :)");
-//			CREATE SESSION AVEC LOBJET USER
+			HttpSession session = request.getSession();
+			session.setAttribute("current_user", utilisateur);
+			System.out.println("session current user logged -> "+session.getAttribute("current_user"));
+			RequestDispatcher rd = request.getRequestDispatcher("/auction/home");
+			rd.forward(request, response);
 		} else {
-			System.out.println("user unknow ! :(");
+			System.out.println("user unknow ! :( BACK TO LOGIN");
+			request.setAttribute("message", "USER UNKNOWN, retry or create account :)");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/connection-login.jsp");
+			rd.forward(request, response);
+			
 		}
 	}
 

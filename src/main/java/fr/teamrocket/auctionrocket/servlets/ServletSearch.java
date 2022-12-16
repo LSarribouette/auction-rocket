@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,12 +30,26 @@ public class ServletSearch extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("ServletSearch doGet");
+//		TODO review this doGet with listAll inited from home.jsp
+		List<Article> articles = new ArrayList<>();
+		if(request.getParameter("search-filter")!= null || request.getParameter("search-filter").equals("home-listAll")) {
+			System.out.println("listAll requested from home.jsp");
+			
+			articles = ArticleManager.getInstance().listAll();
+	        request.setAttribute("articles", articles);
+	        
+//	        est ce que je veux vraiment aller sur auction-home.jsp depuis le doGet de ServletSearch ?
+	        
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
+			rd.forward(request, response);
+		}
+		
 	}
 
 	/**

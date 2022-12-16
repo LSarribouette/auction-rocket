@@ -20,6 +20,10 @@ create account ? ->
 	<a href="<%=request.getContextPath()%>/connection/signup"> Sign up</a>
 </button>
 
+<%if(request.getAttribute("message")!=null) {%>
+<h3 strong style="color:red"><%=request.getAttribute("message") %></h3>
+<%} %>
+
 <fieldset>
 	<legend>LOGIN</legend>
 	<form method="post" action="<%=request.getContextPath()%>/connection/login">

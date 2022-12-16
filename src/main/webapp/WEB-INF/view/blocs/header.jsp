@@ -4,6 +4,9 @@
 
 <button onClick="window.location.reload();">Refresh Page</button>
 
+<!-- TODO ARRETEZ LES CONNERIES avec les getParameter   -->
+<!-- TODO se demerder pour recup la session ici pour TOUJOURS afficher image mais changer son href -->
+
 <% if(request.getParameter("isConnected").equals("false")){ %>
 	<h3 style="color:red">l'utilisateur NEST PAS CONNECTE</h3>
 	<a href="<%=request.getContextPath() %>">

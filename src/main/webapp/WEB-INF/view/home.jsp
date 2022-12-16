@@ -18,17 +18,11 @@
 	<a href="<%=request.getContextPath()%>/ServletConnection">Log in / Sign up</a>
 </button>
 
-<jsp:include page="/WEB-INF/view/blocs/search.jsp">
-		<jsp:param value="false" name="isConnected"/>
-		<jsp:param value="home.jsp" name="from"/>
-</jsp:include>
+<jsp:include page="/WEB-INF/view/blocs/search.jsp"/>
 
 <hr>
 
-<jsp:include page="/WEB-INF/view/blocs/display-result.jsp">
-		<jsp:param value="false" name="isConnected"/>
-		<jsp:param value="home.jsp" name="from"/>
-</jsp:include>
+<jsp:include page="/WEB-INF/view/blocs/display-result.jsp"/>
 
 </body>
 </html>

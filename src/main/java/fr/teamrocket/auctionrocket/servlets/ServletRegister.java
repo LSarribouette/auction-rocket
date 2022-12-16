@@ -40,7 +40,7 @@ public class ServletRegister extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("user registration servlet");
-
+//TODO faire ça mieux, notemment avec les credit et admin
 		Utilisateur utilisateur = new Utilisateur(
 				request.getParameter("pseudo").toString(),
 				request.getParameter("nom").toString(),

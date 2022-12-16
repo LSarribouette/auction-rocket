@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.teamrocket.auctionrocket.bll.ArticleManager;
 import fr.teamrocket.auctionrocket.bo.Article;
@@ -32,6 +33,8 @@ public class ServletHome extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		pour demander a display result le listAll depuis HOME (non connecté)
+		request.setAttribute("search-filter", "home-listAll");
 		
 		List<Article> articles = ArticleManager.getInstance().listAll();
         request.setAttribute("articles", articles);            

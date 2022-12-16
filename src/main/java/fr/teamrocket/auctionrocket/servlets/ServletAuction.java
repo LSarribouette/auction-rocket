@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletAuctionHome
@@ -28,7 +31,12 @@ public class ServletAuction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		if URL
+//		
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
+		request.setAttribute("currentPseudo", utilisateur.getPseudo());
+		
+		System.out.println(utilisateur.getNom());
 			if(request.getServletPath().equals("/auction/article/detail")) {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/article-detail.jsp");
 				rd.forward(request, response);
