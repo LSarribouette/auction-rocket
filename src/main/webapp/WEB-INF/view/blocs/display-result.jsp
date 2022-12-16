@@ -4,7 +4,6 @@
 <fieldset>
 	<legend>DISPLAY SEARCH RESULT</legend>
 	
-	<h4>TEST DB avec utilisateur connecté = <%=request.getParameter("isConnected") %></h4>
 
 <table align="center">
 		<thead style="text-align: center; text-decoration: underline;">

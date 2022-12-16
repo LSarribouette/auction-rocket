@@ -1,6 +1,9 @@
 <div>
 	<fieldset>
 	<legend>SEARCH BLOC</legend>
+	
+	
+	
 	<form action="<%=request.getContextPath() %>/ServletSearch" method="POST">
 	
 		Filtres : 
@@ -10,8 +13,15 @@
 		<select><option>Toutes</option></select>
 		<hr>
 		
+		<input type="submit" value="RECHERCHER"> 
+		</form>
+
+	<%session=request.getSession(false); %>
+	<%if (session != null) {%>		
+
 		<!-- TODO autorisé uniquement le cochage des cases correspondant au radio bouton sélectionné ??-->
 		<!-- renommer les boutons is OK ??? -->
+	
 		
 		<input type="radio" value="buying" id="buying" name="radio-action">
 		<label for="buying">ACHAT</label> <br>
@@ -29,11 +39,7 @@
 		<input type="radio" value="sales" id="sales" name="radio-action">
 		<label for="sales">Mes VENTES</label> <br>
 		
-		<input type="checkbox"
-			<%if(request.getAttribute("target")!=null && request.getAttribute("target").toString().equals("mysales")){%>
-				checked
-			<%} %>
-			 id="ongoing-user-sales" name="ongoing-user-sales"> 
+		<input type="checkbox" id="ongoing-user-sales" name="ongoing-user-sales"> 
 		<label for="ongoing-user-sales">mes ventes en cours</label><br>
 		
 		<input type="checkbox" id="unstarted-user-sales" name="unstarted-user-sales"> 
@@ -42,10 +48,9 @@
 		<input type="checkbox" id="ended-user-sales" name="ended-user-sales">	
 		<label for="ended-user-sales">ventes terminées</label><br>
 		
-		<hr>
-		
 		<input type="submit" value="RECHERCHER"> 
 	</form>
+	<%} %>
 	
 	</fieldset>
 	
