@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>AUCTION ROCKET - sell an article</title>
+<meta charset="UTF-8">
+<title>Auction Rocket</title>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/view/blocs/header.jsp"/>
 	
 	<h1>article sell form</h1>
 	<!-- TODO : FOUTRE DES REQUIRED -->
@@ -21,14 +23,14 @@
 	   	<label for="category">Categorie</label>
 	   	<select name="category" id="category">
 	   		<option>tout</option>
-	   		<option>électronique</option>
-	   		<option>matériel de torture</option>
+	   		<option>Ã©lectronique</option>
+	   		<option>matÃ©riel de torture</option>
 	   	</select>
 	   	<br>
 	   	<label for="photo-article">photo de l'article: </label>
 	   	<input type="file" name="photo-article" id="photo-article" accept="image/png, image/jpeg">
 	   	<br>
-	   	<label for="prix">Mise à prix:</label>	
+	   	<label for="prix">Mise Ã  prix:</label>	
 		<input type="number" id="prix" name="prix" min="0">
 	   	<br>
 	   	<label for="date-start">Start date:</label>
