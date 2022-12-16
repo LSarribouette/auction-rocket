@@ -2,14 +2,15 @@
 <fieldset> 
 <legend>HEADER MENU</legend>
 
-<button onClick="window.location.reload();">Refresh Page</button><br>
+<button onClick="window.location.reload();">Rafraîchir</button><br>
+<button onClick="history.go(-1)">Retour</button><br>
 
 	<a 
-	<%if (session.getAttribute("current_user") != null) {%>
-	href="<%=request.getContextPath() %>/auction/home">
-	<%} else if (session.getAttribute("current_user") == null){ %>
-	href="<%=request.getContextPath() %>/home">
-	<%} %>
+		<%if (session.getAttribute("current_user") != null) {%>
+			href="<%=request.getContextPath() %>/auction/home">
+		<%} else if (session.getAttribute("current_user") == null){ %>
+			href="<%=request.getContextPath() %>/home">
+		<%} %>
 		<img src="<%=request.getContextPath() %>/media/logo-team-rocket-2.png" alt="LOGO Pokemon Team Rocket"> 
 	</a><br>
 
