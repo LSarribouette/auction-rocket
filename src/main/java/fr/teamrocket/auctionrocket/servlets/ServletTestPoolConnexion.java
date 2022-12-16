@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+// TODO servlet de test à supprimer
+
 /**
  * Servlet implementation class ServletTestPoolConnexion
  */

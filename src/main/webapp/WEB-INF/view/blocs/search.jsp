@@ -12,16 +12,10 @@
 		catégorie : 
 		<select><option>Toutes</option></select>
 		<hr>
-		
-		<input type="submit" value="RECHERCHER"> 
-		</form>
 
-	<%session=request.getSession(false); %>
-	<%if (session != null) {%>		
+	<%if (session.getAttribute("current_user") != null) {%>		
 
-		<!-- TODO autorisé uniquement le cochage des cases correspondant au radio bouton sélectionné ??-->
-		<!-- renommer les boutons is OK ??? -->
-	
+		<!-- TODO autorisé uniquement le cochage des cases correspondant au radio bouton sélectionné ??-->	
 		
 		<input type="radio" value="buying" id="buying" name="radio-action">
 		<label for="buying">ACHAT</label> <br>
@@ -49,8 +43,9 @@
 		<label for="ended-user-sales">ventes terminées</label><br>
 		
 		<input type="submit" value="RECHERCHER"> 
-	</form>
 	<%} %>
+	
+	</form>
 	
 	</fieldset>
 	

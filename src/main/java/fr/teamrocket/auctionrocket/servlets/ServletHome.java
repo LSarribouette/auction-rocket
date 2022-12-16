@@ -33,15 +33,13 @@ public class ServletHome extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-////		pour demander a display result le listAll depuis HOME (non connecté)
-//		request.setAttribute("search-filter", "home-listAll");
-//		
-//		List<Article> articles = ArticleManager.getInstance().listAll();
-//        request.setAttribute("articles", articles);            
-//		
-//		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
-//		rd.forward(request, response);
-		System.out.println("shut up you mean ServletHome");
+		System.out.println("shut up you mean ServletHome -- je passe ici quand j'appuie sur le logo en non connecté");
+		
+		List<Article> articles = ArticleManager.getInstance().listAll();
+        request.setAttribute("articles", articles);            
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
