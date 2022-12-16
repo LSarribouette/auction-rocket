@@ -8,11 +8,11 @@
 <!-- TODO se demerder pour recup la session ici pour TOUJOURS afficher image mais changer son href -->
 
 	<%session=request.getSession(false); %>
-	<a href="
+	<a 
 	<%if (session == null) {%>
-	<%=request.getContextPath() %>
+	href="<%=request.getContextPath() %>/home">
 	<%} else { %>
-	<%=request.getContextPath() %>/auction/home">
+	href="<%=request.getContextPath() %>/auction/home">
 	<%} %>
 		<img src="../media/logo-team-rocket-2.png" alt="Pokemon Team Rocket Logo">
 	</a>
