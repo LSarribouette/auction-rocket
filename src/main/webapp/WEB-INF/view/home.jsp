@@ -15,7 +15,7 @@
 <h1>THIS IS HOME.JSP</h1>
 
 <button>
-	<a href="<%=request.getContextPath()%>/ServletConnection">Log in / Sign up</a>
+	<a href="<%=request.getContextPath()%>/connection/login">Log in / Sign up</a>
 </button>
 
 <jsp:include page="/WEB-INF/view/blocs/search.jsp"/>

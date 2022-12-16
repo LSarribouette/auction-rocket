@@ -39,14 +39,19 @@ public class ServletConnection extends HttpServlet {
 			if(request.getServletPath().equals("/connection/signup")) {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/connection-signup.jsp");
 				rd.forward(request, response);
-			}  else if(request.getServletPath().equals("/connection/logout")) {
-//				TODO : session destroy
-				System.out.println("THE USER HAS TO BE DISCONNECTED HERE -> /connection/logout");
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
+			}  else if(request.getServletPath().equals("/connection/login")) {
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/connection-login.jsp");
 				rd.forward(request, response);
+			}  else if(request.getServletPath().equals("/connection/logout")) {
+				HttpSession session = request.getSession();
+//					TODO : session destroy
+					System.out.println("invalidate session . . . ");
+					session.invalidate();
+					System.out.println("User is disconnected");
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
+					rd.forward(request, response);
 			}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/connection-login.jsp");
-		rd.forward(request, response);
+
 	}
 
 	/**
@@ -62,6 +67,7 @@ public class ServletConnection extends HttpServlet {
 		if(utilisateur!=null) {
 			System.out.println("user connected ! :)");
 			HttpSession session = request.getSession();
+			System.out.println("session ID : "+session.getId());
 			session.setAttribute("current_user", utilisateur);
 			System.out.println("session current user logged -> "+session.getAttribute("current_user"));
 			RequestDispatcher rd = request.getRequestDispatcher("/auction/home");
