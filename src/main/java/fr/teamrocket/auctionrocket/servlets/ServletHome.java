@@ -33,7 +33,7 @@ public class ServletHome extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("shut up you mean ServletHome -- je passe ici quand j'appuie sur le logo en non connecté");
+		System.out.println("ServletHome : je passe ici à l'entrée dans l'appli et quand j'appuie sur le logo en non connecté");
 		
 		List<Article> articles = ArticleManager.getInstance().listAll();
         request.setAttribute("articles", articles);            
