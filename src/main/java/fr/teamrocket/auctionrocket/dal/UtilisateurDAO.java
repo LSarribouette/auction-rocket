@@ -10,4 +10,6 @@ public interface UtilisateurDAO {
 
 	public abstract Utilisateur fetchUtilisateurByPseudoAndMdp(String pseudo, String pwd);
 	
+	public abstract Utilisateur updateUtilisateur(Utilisateur utilisateur, String pseudo, String pwd);
+	
 }

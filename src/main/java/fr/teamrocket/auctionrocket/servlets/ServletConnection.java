@@ -58,10 +58,11 @@ public class ServletConnection extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("-----------ServletConnection doPost-----------");
 //		reception login form, check user ok in DB, IF OK we go create session and  -> /auction/home
+//		TODO : chiffrer le MDP
 		String pseudo = request.getParameter("pseudo");
 		String pwd = request.getParameter("pwd");
-		System.out.println(pseudo + " - " + pwd);
 		Utilisateur utilisateur = UtilisateurManager.getInstance().fetchUtilisateurByPseudoAndMdp(request.getParameter("pseudo"), request.getParameter("pwd"));
 		System.out.println(utilisateur);
 		if(utilisateur!=null) {
@@ -77,7 +78,6 @@ public class ServletConnection extends HttpServlet {
 			request.setAttribute("message", "USER UNKNOWN, retry or create account :)");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/connection-login.jsp");
 			rd.forward(request, response);
-			
 		}
 	}
 

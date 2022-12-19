@@ -34,6 +34,8 @@ public class ServletAuction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("---------ServletAuction doGet---------");
+		
 //		Si j'arrive ici, je suis connectée et donc je vois les filtres ACHATS/VENTES --> par défaut, je veux voir la liste ACHATS
 //			= Je veux pas listAll par défaut, mais bien listAllAuctions 		
 		List<Article> articles = ArticleManager.getInstance().listAllAuctions();
@@ -43,7 +45,7 @@ public class ServletAuction extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
-		request.setAttribute("currentPseudo", utilisateur.getPseudo());
+		session.setAttribute("current_pseudo", utilisateur.getPseudo());
 		
 		System.out.println(utilisateur.getNom());
 			if(request.getServletPath().equals("/auction/article/detail")) {

@@ -51,10 +51,12 @@ public class ServletRegister extends HttpServlet {
 				request.getParameter("code-postal").toString(),
 				request.getParameter("ville").toString(),
 				request.getParameter("mot-de-passe").toString(), 
+//				TODO virer les 0, mettre un default coté DB ? profiter du constructeur sans credit et admin 
 				0, 
 				0
 				); 
 		UtilisateurManager.getInstance().insertUtilisateur(utilisateur);
+		request.setAttribute("message", "utilisateur enregistré :)");
 		doGet(request, response);
 	}
 

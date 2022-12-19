@@ -29,5 +29,9 @@ public class UtilisateurManager {
 	public Utilisateur fetchUtilisateurByPseudoAndMdp(String pseudo, String pwd) {
 		return DAOFactory.getUtilisateurDAO().fetchUtilisateurByPseudoAndMdp(pseudo, pwd);
 	}
+	
+	public Utilisateur UpdateUtilisateur(Utilisateur utilisateur, String pseudo, String pwd) {
+		return DAOFactory.getUtilisateurDAO().updateUtilisateur(utilisateur, pseudo, pwd);
+	};
 
 }

@@ -31,8 +31,9 @@ public class Utilisateur {
 		this.setNoUtilisateur(noUtilisateur);
 	}
 	
+//	constructeur pour handle le form de modif de profil
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String mdp, int credit, int administrateur) {
+			String rue, String codePostal, String ville, String mdp) {
 		this.setPseudo(pseudo);
 		this.setNom(nom);
 		this.setPrenom(prenom);
@@ -42,14 +43,13 @@ public class Utilisateur {
 		this.setCodePostal(codePostal);
 		this.setVille(ville);
 		this.setMdp(mdp);
-		this.setCredit(credit);
-		this.setAdministrateur(administrateur);	
 	}
 	
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String mdp, int credit, int administrateur) {
-		this();
-		this.setNoUtilisateur(noUtilisateur);
+		this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
+		this.setCredit(credit);
+		this.setAdministrateur(administrateur);	
 	}
 
 	public int getNoUtilisateur() {
