@@ -3,6 +3,8 @@ package fr.teamrocket.auctionrocket.bll;
 import java.util.List;
 
 import fr.teamrocket.auctionrocket.bo.Article;
+import fr.teamrocket.auctionrocket.bo.Categorie;
+import fr.teamrocket.auctionrocket.bo.Utilisateur;
 import fr.teamrocket.auctionrocket.dal.DAOFactory;
 
 public class ArticleManager {
@@ -17,6 +19,10 @@ public class ArticleManager {
     }
     
     private ArticleManager() { }
+    
+    public void insertArticle(Utilisateur utilisateur, Article article, Categorie categorie) {
+    	DAOFactory.getArticleDAO().insertArticle( utilisateur,  article,  categorie);
+    }
     
     public List<Article> listAll() {
         return DAOFactory.getArticleDAO().listAll();
@@ -54,8 +60,6 @@ public class ArticleManager {
     	return DAOFactory.getArticleDAO().listEndedUserSales();
     }
     
-    public void insertArticle(Article article) {
-    	DAOFactory.getArticleDAO().insertArticle(article);
-    }
+
 }
 

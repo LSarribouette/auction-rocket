@@ -3,10 +3,12 @@ package fr.teamrocket.auctionrocket.dal;
 import java.util.List;
 
 import fr.teamrocket.auctionrocket.bo.Article;
+import fr.teamrocket.auctionrocket.bo.Categorie;
+import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 public interface ArticleDAO {
 	
-	public abstract void insertArticle(Article article);
+	public abstract void insertArticle(Utilisateur utilisateur, Article article, Categorie categorie);
 
 //	TOUT
 	public abstract List<Article> listAll();

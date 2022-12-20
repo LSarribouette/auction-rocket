@@ -1,6 +1,6 @@
 package fr.teamrocket.auctionrocket.bo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Article {
 	private final static String DEFAULT_URL_IMAGE ="/auction-rocket/src/main/webapp/media/placeHolderDefault.jpg";
@@ -14,7 +14,7 @@ public class Article {
 	private int prixVente;
 	private Utilisateur utilisateur;
 	private Categorie categorie;
-	private String etatVente;
+	private String etatVente="non débuté";
 	private String utilisateurEncherisseur;
 	private Retrait retrait;
 	private String urlImage = DEFAULT_URL_IMAGE;
@@ -39,16 +39,10 @@ public class Article {
 	}
 
 //	constructeur pour handle le form de modif de profil
-	public Article(
-			String nomArticle, 
-			String description, 
-			Date dateDebutEnchere, 
-			Date dateFinEnchere,
-			int prixInitial, 
-			Utilisateur utilisateur, 
-			Categorie categorie, 
-			Retrait retrait) {
-		this();
+	public Article(String nomArticle, String description, 
+			Date dateDebutEnchere, Date dateFinEnchere,
+			int prixInitial, Utilisateur utilisateur, 
+			Categorie categorie, Retrait retrait) {
 		this.setNomArticle(nomArticle);
 		this.setDescription(description); 
 		this.setDateDebutEnchere(dateDebutEnchere);
@@ -58,7 +52,7 @@ public class Article {
 		this.setCategorie(categorie);
 		this.setRetrait(retrait);
 	}
-
+	
 	public Article(
 			String nomArticle, 
 			String description, 
@@ -69,7 +63,7 @@ public class Article {
 			Categorie categorie, 
 			Retrait retrait, 
 			String urlImage) {
-		this();
+		this(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, utilisateur, categorie, retrait);
 		this.setUrlImage(urlImage);
 	}
 	

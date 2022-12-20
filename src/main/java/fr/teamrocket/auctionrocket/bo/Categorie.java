@@ -19,7 +19,7 @@ public class Categorie {
 		this.setNoCategorie(noCategorie);
 	}
 
-	public Categorie(String libelle) {
+	public Categorie(int noCategorie, String libelle) {
 		this();
 		this.setLibelle(libelle);
 	}
