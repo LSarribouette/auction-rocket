@@ -1,5 +1,7 @@
 package fr.teamrocket.auctionrocket.bo;
 
+//TODO : au secours
+//import java.util.Date; 
 import java.sql.Date;
 
 public class Article {

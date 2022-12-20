@@ -47,7 +47,6 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private final static String SELECT_ENDED_USER_SALES = 
 			"SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur =? AND etat_vente ='vendu';";
 			
-
 	@Override
 	public void insertArticle(Utilisateur utilisateur, Article article, Categorie categorie) {
 		System.out.println("tentative d'insertion d'un Article en DB - "+article);
@@ -56,8 +55,14 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			pstmt.setString(1, article.getNomArticle());
 			pstmt.setString(2, article.getDescription());
 //			cast des Date de java.util.date à java.sql.date je sais pas, je ne souhaite pas en parler
-			pstmt.setDate(3, (Date) article.getDateDebutEnchere());
-			pstmt.setDate(4, (Date) article.getDateFinEnchere());
+//			pstmt.setDate(3, (Date) article.getDateDebutEnchere()); ORI
+//			pstmt.setDate(4, (Date) article.getDateFinEnchere());	ORI
+//			statement.setDate(1, new java.sql.Date(date.getTime()));
+			
+			pstmt.setDate(3, new Date(article.getDateDebutEnchere().getTime()));
+			pstmt.setDate(4, new Date(article.getDateFinEnchere().getTime()));
+			
+			
 			pstmt.setInt(5, article.getPrixInitial());
 			pstmt.setInt(6, utilisateur.getNoUtilisateur());
 			pstmt.setInt(7, categorie.getNoCategorie());

@@ -6,6 +6,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+//TODO : au secours
+//import java.util.Date;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -85,26 +88,24 @@ public class ServletSales extends HttpServlet {
 			photoArticle = request.getParameter("photo-article").toString(); 
 		}
 		
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
-		Date dateStart = null;
-		Date dateEnd = null;
-		try {
-			dateStart = (Date)formatter.parse(request.getParameter("date-start"));
-			dateEnd = (Date)formatter.parse(request.getParameter("date-end"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		System.out.println("dateStart : "+dateStart);
-		System.out.println("dateEnd : "+dateEnd);
-		
+//		TODO : au secours		
+//		Date dateStart = null;
+//		Date dateEnd = null;
+//		try {
+//			dateStart = new SimpleDateFormat("dd-MMM-yyyy HH:mm.").parse(request.getParameter("date-start"));
+//			dateEnd = new SimpleDateFormat("dd-MMM-yyyy HH:mm.").parse(request.getParameter("date-end"));
+//		
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		Article article = new Article(
 				request.getParameter("nom-article").toString(),
 				request.getParameter("description").toString(),
-//				(Date)request.getParameter("date-start"),
-				dateStart,
-//				(Date)request.getParameter("date-end"),
-				dateEnd,
+				(Date)request.getParameter("date-start"),
+//				dateStart,
+				(Date)request.getParameter("date-end"),
+//				dateEnd,
 				Integer.parseInt(request.getParameter("prix-initial")),
 //				utilisateur récupéré depuis la session
 				utilisateur,
