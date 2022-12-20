@@ -54,15 +54,15 @@ public class ServletHome extends HttpServlet {
 	protected void doGetConnected(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		Si j'arrive ici, je suis connectée et donc je vois les filtres ACHATS/VENTES --> par défaut, je veux voir la liste ACHATS (listAllAuctions) 
 		System.out.println("ServletHome : je passe ici quand je suis connectée et quand j'appuie sur le logo en connecté");
-		
-		List<Article> articles = ArticleManager.getInstance().listAllAuctions();
-        request.setAttribute("articles", articles);     
 
-		request.setAttribute("buying", "koshed"); 
 		
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
 		session.setAttribute("current_pseudo", utilisateur.getPseudo());
+				
+		List<Article> articles = ArticleManager.getInstance().listAllAuctions(utilisateur);
+        request.setAttribute("articles", articles);     
+		request.setAttribute("buying", "koshed"); 
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 		rd.forward(request, response);
