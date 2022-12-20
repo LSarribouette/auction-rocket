@@ -18,7 +18,7 @@
 	   	<input type="text" name="nom-article" id="nom-article" >
 	   	<br>    
 	   	<label for="description">Description: </label>
-	   	<textarea rows="5" cols="15">description</textarea>
+	   	<textarea rows="5" cols="15" id="description" name="description">description</textarea>
 	   	<br>
 	   	<label for="category">Categorie</label>
 	   	<select name="category" id="category">
@@ -35,12 +35,12 @@
 	   	<br>
 	   	<label for="date-start">Start date:</label>
 		<input type="datetime-local" id="date-start" name="date-start"
-	      value="2022-01-30 12:00"
+	      value="2022-01-30T12:00"
 	      min="" max="">
 		<br>
 		<label for="date-end">End date:</label>
 		<input type="datetime-local" id="date-end" name="date-end"
-	      value="2022-01-30 12:00"
+	      value="2022-01-30T12:00"
 	      min="" max="">
 	   	<br>
 	   	<fieldset>Retrait
@@ -63,7 +63,7 @@
 	/* PETIT BOUT DE SCRIPT pour set la date now dans le form par défaut :)  */
 		window.addEventListener('load', () => {
 			let nowDate = new Date();
-			nowDate.setMinutes(nowDate.getMinutes() - nowDate.getTimezoneOffset());
+			nowDate.setMinutes(nowDate.getMinutes());
 			/* remove second/millisecond if needed - credit ref. 
 			https://stackoverflow.com/questions/24468518/html5-input-datetime-local-default-value-of-today-and-current-time#comment112871765_60884408 */
 			nowDate.setMilliseconds(null)

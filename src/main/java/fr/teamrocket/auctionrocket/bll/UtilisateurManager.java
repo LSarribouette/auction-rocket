@@ -17,8 +17,6 @@ public class UtilisateurManager {
 	private UtilisateurManager() { }
 	
 	public void insertUtilisateur(Utilisateur utilisateur) {
-		System.out.println("UTILISATEURMANAGER");
-		System.out.println(utilisateur);
 		DAOFactory.getUtilisateurDAO().insertUtilisateur(utilisateur);
 	}
 	

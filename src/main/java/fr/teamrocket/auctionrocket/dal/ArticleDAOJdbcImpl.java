@@ -42,6 +42,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private final static String SELECT_ENDED_USER_SALES = 
 			"SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur =? AND etat_vente ='vendu';";
 			
+
+	@Override
+	public void insertArticle(Article article) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	@Override
 	public List<Article> listAll() {
@@ -335,6 +342,6 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		}
 		return articles;
 	}
-	
+
 
 }

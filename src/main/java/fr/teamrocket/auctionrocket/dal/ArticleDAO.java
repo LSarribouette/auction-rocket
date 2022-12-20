@@ -5,6 +5,8 @@ import java.util.List;
 import fr.teamrocket.auctionrocket.bo.Article;
 
 public interface ArticleDAO {
+	
+	public abstract void insertArticle(Article article);
 
 //	TOUT
 	public abstract List<Article> listAll();

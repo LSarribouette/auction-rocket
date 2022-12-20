@@ -15,12 +15,12 @@ public class Categorie {
 	}	
 	
 	public Categorie(int noCategorie) {
-		super();
+		this();
 		this.setNoCategorie(noCategorie);
 	}
 
-	public Categorie(int noCategorie, String libelle) {
-		super();
+	public Categorie(String libelle) {
+		this();
 		this.setLibelle(libelle);
 	}
 	

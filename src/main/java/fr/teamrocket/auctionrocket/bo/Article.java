@@ -1,8 +1,10 @@
 package fr.teamrocket.auctionrocket.bo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Article {
+	private final static String DEFAULT_URL_IMAGE ="/auction-rocket/src/main/webapp/media/placeHolderDefault.jpg";
+	
 	private int noArticle;
 	private String nomArticle;
 	private String description;
@@ -15,6 +17,7 @@ public class Article {
 	private String etatVente;
 	private String utilisateurEncherisseur;
 	private Retrait retrait;
+	private String urlImage = DEFAULT_URL_IMAGE;
 	
 
 	@Override
@@ -24,8 +27,8 @@ public class Article {
 				+ ", getDateFinEnchere()=" + getDateFinEnchere() + ", getPrixInitial()=" + getPrixInitial()
 				+ ", getPrixVente()=" + getPrixVente() + ", getUtilisateur()=" + getUtilisateur() + ", getCategorie()="
 				+ getCategorie() + ", getEtatVente()=" + getEtatVente() + ", getUtilisateurEncherisseur()="
-				+ getUtilisateurEncherisseur() + "]";
-	}
+				+ getUtilisateurEncherisseur() + ", getRetrait()=" + getRetrait() + ", getUrlImage()=" + getUrlImage() + "]";
+	}	
 
 	public Article() {
 		
@@ -36,8 +39,15 @@ public class Article {
 	}
 
 //	constructeur pour handle le form de modif de profil
-	public Article(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
-			int prixInitial, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
+	public Article(
+			String nomArticle, 
+			String description, 
+			Date dateDebutEnchere, 
+			Date dateFinEnchere,
+			int prixInitial, 
+			Utilisateur utilisateur, 
+			Categorie categorie, 
+			Retrait retrait) {
 		this();
 		this.setNomArticle(nomArticle);
 		this.setDescription(description); 
@@ -49,10 +59,23 @@ public class Article {
 		this.setRetrait(retrait);
 	}
 
-
+	public Article(
+			String nomArticle, 
+			String description, 
+			Date dateDebutEnchere, 
+			Date dateFinEnchere,
+			int prixInitial, 
+			Utilisateur utilisateur, 
+			Categorie categorie, 
+			Retrait retrait, 
+			String urlImage) {
+		this();
+		this.setUrlImage(urlImage);
+	}
+	
 	public Article(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
-			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente,Retrait retrait) {
-		this(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, utilisateur, categorie, retrait);
+			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente,Retrait retrait, String urlImage) {
+		this(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, utilisateur, categorie, retrait, urlImage);
 		this.setEtatVente(etatVente);
 	}
 	
@@ -140,6 +163,16 @@ public class Article {
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
 	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+
 
 
 }

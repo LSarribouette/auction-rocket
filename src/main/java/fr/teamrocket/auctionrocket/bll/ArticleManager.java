@@ -53,5 +53,9 @@ public class ArticleManager {
     public List<Article> listEndedUserSales() {
     	return DAOFactory.getArticleDAO().listEndedUserSales();
     }
+    
+    public void insertArticle(Article article) {
+    	DAOFactory.getArticleDAO().insertArticle(article);
+    }
 }
 
