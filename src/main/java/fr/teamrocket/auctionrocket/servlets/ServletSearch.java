@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.teamrocket.auctionrocket.bll.ArticleManager;
 import fr.teamrocket.auctionrocket.bo.Article;
+import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletSearch
@@ -48,8 +49,10 @@ public class ServletSearch extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		System.out.println(session);
+		HttpSession session = request.getSession(false);		
+		Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("current_user");
+
+		System.out.println("La session " + session + " de l'utilisateur connecté " + utilisateurConnecte.getPseudo()); // TODO supp
 
 		List<Article> articles = new ArrayList<>();
 
@@ -93,7 +96,7 @@ public class ServletSearch extends HttpServlet {
 					&& request.getParameter("ongoing-user-auctions") == null
 					&& request.getParameter("won-user-auctions") == null) {
 				System.out.println("aucune case cochée"); // TODO supp
-				articles = ArticleManager.getInstance().listAllAuctions();
+				articles = ArticleManager.getInstance().listAllAuctions(utilisateurConnecte);
 				request.setAttribute("articles", articles);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
 				rd.forward(request, response);
@@ -103,21 +106,21 @@ public class ServletSearch extends HttpServlet {
 			if (request.getParameter("all-ongoing-auctions") != null) {
 				request.setAttribute("all-ongoing-auctions", "koshed");
 				System.out.println("case cochée: all-ongoing-auctions"); // TODO supp
-				List<Article> articlesAllOngoingAuctions = ArticleManager.getInstance().listAllOngoingAuctions();
+				List<Article> articlesAllOngoingAuctions = ArticleManager.getInstance().listAllOngoingAuctions(utilisateurConnecte);
 				articles.addAll(articlesAllOngoingAuctions);
 			}
 
 			if (request.getParameter("ongoing-user-auctions") != null) {
 				request.setAttribute("ongoing-user-auctions", "koshed");
 				System.out.println("case cochée: ongoing-user-auctions stays"); // TODO supp
-				List<Article> articlesOngoingUserAuctions = ArticleManager.getInstance().listOngoingUserAuctions();
+				List<Article> articlesOngoingUserAuctions = ArticleManager.getInstance().listOngoingUserAuctions(utilisateurConnecte);
 				articles.addAll(articlesOngoingUserAuctions);
 			}
 
 			if (request.getParameter("won-user-auctions") != null) {
 				request.setAttribute("won-user-auctions", "koshed");
 				System.out.println("case cochée: won-user-auctions"); // TODO supp
-				List<Article> articlesWonUserAuctions = ArticleManager.getInstance().listWonUserAuctions();
+				List<Article> articlesWonUserAuctions = ArticleManager.getInstance().listWonUserAuctions(utilisateurConnecte);
 				articles.addAll(articlesWonUserAuctions);
 			}
 
@@ -138,7 +141,7 @@ public class ServletSearch extends HttpServlet {
 					&& request.getParameter("unstarted-user-sales") == null
 					&& request.getParameter("ended-user-sales") == null) {
 				System.out.println("aucune case cochée"); // TODO supp
-				articles = ArticleManager.getInstance().listAllSales();
+				articles = ArticleManager.getInstance().listAllSales(utilisateurConnecte);
 				request.setAttribute("articles", articles);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
 				rd.forward(request, response);
@@ -148,21 +151,21 @@ public class ServletSearch extends HttpServlet {
 			if (request.getParameter("ongoing-user-sales") != null) {
 				request.setAttribute("ongoing-user-sales", "koshed");
 				System.out.println("case cochée: ongoing-user-sales"); // TODO supp
-				List<Article> articlesOngoingUserSales = ArticleManager.getInstance().listOngoinUserSales();
+				List<Article> articlesOngoingUserSales = ArticleManager.getInstance().listOngoinUserSales(utilisateurConnecte);
 				articles.addAll(articlesOngoingUserSales);
 			}
 
 			if (request.getParameter("unstarted-user-sales") != null) {
 				request.setAttribute("unstarted-user-sales", "koshed");
 				System.out.println("case cochée: unstarted-user-sales"); // TODO supp
-				List<Article> articlesUnstartedUserSales = ArticleManager.getInstance().listUnstartedUserSales();
+				List<Article> articlesUnstartedUserSales = ArticleManager.getInstance().listUnstartedUserSales(utilisateurConnecte);
 				articles.addAll(articlesUnstartedUserSales);
 			}
 
 			if (request.getParameter("ended-user-sales") != null) {
 				request.setAttribute("ended-user-sales", "koshed");
 				System.out.println("case cochée: ended-user-sales"); // TODO supp
-				List<Article> articlesEndedUserSales = ArticleManager.getInstance().listEndedUserSales();
+				List<Article> articlesEndedUserSales = ArticleManager.getInstance().listEndedUserSales(utilisateurConnecte);
 				articles.addAll(articlesEndedUserSales);
 			}
 			

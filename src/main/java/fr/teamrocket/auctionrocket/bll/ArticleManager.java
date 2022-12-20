@@ -3,6 +3,7 @@ package fr.teamrocket.auctionrocket.bll;
 import java.util.List;
 
 import fr.teamrocket.auctionrocket.bo.Article;
+import fr.teamrocket.auctionrocket.bo.Utilisateur;
 import fr.teamrocket.auctionrocket.dal.DAOFactory;
 
 public class ArticleManager {
@@ -22,36 +23,36 @@ public class ArticleManager {
         return DAOFactory.getArticleDAO().listAll();
     }
     
-    public List<Article> listAllAuctions() {
-        return DAOFactory.getArticleDAO().listAllAuctions();
+    public List<Article> listAllAuctions(Utilisateur utilisateurConnecte) {
+        return DAOFactory.getArticleDAO().listAllAuctions(utilisateurConnecte);
     }
     
-    public List<Article> listAllOngoingAuctions() {
-    	return DAOFactory.getArticleDAO().listAllOngoingAuctions();
+    public List<Article> listAllOngoingAuctions(Utilisateur utilisateurConnecte) {
+    	return DAOFactory.getArticleDAO().listAllOngoingAuctions(utilisateurConnecte);
     }
     
-    public List<Article> listOngoingUserAuctions() {
-    	return DAOFactory.getArticleDAO().listOngoingUserAuctions();
+    public List<Article> listOngoingUserAuctions(Utilisateur utilisateurConnecte) {
+    	return DAOFactory.getArticleDAO().listOngoingUserAuctions(utilisateurConnecte);
     }
     
-    public List<Article> listWonUserAuctions() {
-    	return DAOFactory.getArticleDAO().listWonUserAuctions();
+    public List<Article> listWonUserAuctions(Utilisateur utilisateurConnecte) {
+    	return DAOFactory.getArticleDAO().listWonUserAuctions(utilisateurConnecte);
     }
 
-    public List<Article> listAllSales() {
-    	return DAOFactory.getArticleDAO().listAllSales();
+    public List<Article> listAllSales(Utilisateur utilisateurConnecte) {
+    	return DAOFactory.getArticleDAO().listAllSales(utilisateurConnecte);
     }
     
-    public List<Article> listOngoinUserSales() {
-    	return DAOFactory.getArticleDAO().listOngoinUserSales();
+    public List<Article> listOngoinUserSales(Utilisateur utilisateurConnecte) {
+    	return DAOFactory.getArticleDAO().listOngoinUserSales(utilisateurConnecte);
     }
     
-    public List<Article> listUnstartedUserSales() {
-    	return DAOFactory.getArticleDAO().listUnstartedUserSales();
+    public List<Article> listUnstartedUserSales(Utilisateur utilisateurConnecte) {
+    	return DAOFactory.getArticleDAO().listUnstartedUserSales(utilisateurConnecte);
     }
     
-    public List<Article> listEndedUserSales() {
-    	return DAOFactory.getArticleDAO().listEndedUserSales();
+    public List<Article> listEndedUserSales(Utilisateur utilisateurConnecte) {
+    	return DAOFactory.getArticleDAO().listEndedUserSales(utilisateurConnecte);
     }
 }
 

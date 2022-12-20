@@ -77,13 +77,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public List<Article> listAllAuctions() {
+	public List<Article> listAllAuctions(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listallauctions");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_AUCTIONS);
-			pstmt.setInt(1, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur()); 
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {
@@ -109,13 +109,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 	
 	@Override
-	public List<Article> listAllOngoingAuctions() {
+	public List<Article> listAllOngoingAuctions(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listallongoingauctions");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_ONGOING_AUCTIONS);
-			pstmt.setInt(1, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {
@@ -141,14 +141,14 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public List<Article> listOngoingUserAuctions() {
+	public List<Article> listOngoingUserAuctions(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listongoinguserauctions");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ONGOING_USER_AUCTIONS);
-			pstmt.setInt(1, 1); //TODO gerer le param
-			pstmt.setInt(2, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
+			pstmt.setInt(2, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {
@@ -175,14 +175,14 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public List<Article> listWonUserAuctions() {
+	public List<Article> listWonUserAuctions(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listwonuserauctions");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_WON_USER_AUCTIONS);
-			pstmt.setInt(1, 1); //TODO gerer le param
-			pstmt.setInt(2, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
+			pstmt.setInt(2, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {
@@ -209,13 +209,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public List<Article> listAllSales() {
+	public List<Article> listAllSales(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listallsales");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_SALES);
-			pstmt.setInt(1, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {
@@ -241,13 +241,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 	
 	@Override
-	public List<Article> listOngoinUserSales() {
+	public List<Article> listOngoinUserSales(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listongoingusersales");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ONGOING_USER_SALES);
-			pstmt.setInt(1, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {
@@ -273,13 +273,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public List<Article> listUnstartedUserSales() {
+	public List<Article> listUnstartedUserSales(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listongoingusersales");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_UNSTARTED_USER_SALES);
-			pstmt.setInt(1, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {
@@ -305,13 +305,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public List<Article> listEndedUserSales() {
+	public List<Article> listEndedUserSales(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("je rentre dans le listongoingusersales");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ENDED_USER_SALES);
-			pstmt.setInt(1, 1); //TODO gerer le param
+			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
 			Article article = null;
 			while(rs.next()) {

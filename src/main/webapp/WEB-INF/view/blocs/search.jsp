@@ -4,12 +4,28 @@
 		
 	<form action="<%=request.getContextPath() %>/search" method="POST">
 	
+	<%if (session.getAttribute("current_user") == null) { %>
 		Filtres : 
 		<input type="text" value="le nom de l'article contient">
 		<br>
 		catégorie : 
-		<select><option>Toutes</option></select>
+		<select>
+			<option>Toutes</option>
+			<option>Art</option>
+			<option>Musique</option>
+			<option>Littérature</option>
+			<option>Jeux</option>
+			<option>Electroménager</option>
+			<option>Véhicules</option>
+			<option>Vêtements</option>
+			<option>Chaussures</option>
+			<option>Bijoux</option>
+		</select>
 		<hr>
+		<input type="submit" value="RECHERCHER"> 
+		
+	<%	return;
+	} %>
 
 	<%if (session.getAttribute("current_user") != null) {%>		
 
@@ -71,9 +87,9 @@
 			<%}%>
 			>	
 		<label for="ended-user-sales">ventes terminées</label><br>
-	<%} %>
 		
 		<input type="submit" value="RECHERCHER"> 
+	<%} %>
 	
 	</form>
 	
