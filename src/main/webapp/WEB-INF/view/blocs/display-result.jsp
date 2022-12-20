@@ -36,7 +36,14 @@
 			%>
 			<tr style="text-align: center;">
 				<td><%=a.getNoArticle()%></td>
-				<td><%=a.getNomArticle()%></td>
+				<td><a 
+<%-- 					<%if (session.getAttribute("current_user") != null) {%>
+						href="<%=request.getContextPath() %>/auction/article/detail">
+					<%} else if (session.getAttribute("current_user") == null){ %>
+						href="<%=request.getContextPath() %>/article/detail">
+					<%} %> --%>
+				
+				href="<%=request.getContextPath()%>/article/detail"><%=a.getNomArticle()%></a></td>
 				<td><%=a.getDescription()%></td>
 				<td><%=a.getDateDebutEnchere()%></td>
 				<td><%=a.getDateFinEnchere()%></td>

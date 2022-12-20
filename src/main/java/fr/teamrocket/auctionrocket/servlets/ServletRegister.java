@@ -15,7 +15,7 @@ import fr.teamrocket.auctionrocket.bo.Utilisateur;
 /**
  * Servlet implementation class ServletRegister
  */
-@WebServlet({"/ServletRegister", "/register"})
+@WebServlet({"/register"})
 public class ServletRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

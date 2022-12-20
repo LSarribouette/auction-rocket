@@ -19,7 +19,7 @@ import fr.teamrocket.auctionrocket.bo.Article;
 /**
  * Servlet implementation class ServletSearch
  */
-@WebServlet({ "/ServletSearch", "/search" })
+@WebServlet({"/search"})
 public class ServletSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

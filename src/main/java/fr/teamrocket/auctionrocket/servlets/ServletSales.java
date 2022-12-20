@@ -6,33 +6,31 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.DateFormatter;
 
 import fr.teamrocket.auctionrocket.bll.ArticleManager;
-import fr.teamrocket.auctionrocket.bll.UtilisateurManager;
 import fr.teamrocket.auctionrocket.bo.Article;
 import fr.teamrocket.auctionrocket.bo.Categorie;
 import fr.teamrocket.auctionrocket.bo.Retrait;
 import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 /**
- * Servlet implementation class ServletUserSales
+ * Servlet implementation class ServletSales
  */
-@WebServlet({"/ServletUserSales", "/user/mysales"})
-public class ServletUserSales extends HttpServlet {
+@WebServlet({ "/sale/create", "/sale/edit", "/sale/delete" })
+public class ServletSales extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletUserSales() {
+    public ServletSales() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,10 +39,8 @@ public class ServletUserSales extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO arriver à mes ventes <=> AUCTIONHOME AVEC "MES VENTES"
-		request.setAttribute("target", "mysales");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
-		rd.forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -52,7 +48,7 @@ public class ServletUserSales extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------ServletUserSales doPost-----------");
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
 		System.out.println("current user is : "+utilisateur.getPseudo());
 		
@@ -120,8 +116,8 @@ public class ServletUserSales extends HttpServlet {
 			photoArticle
 		); 
 		
-		ArticleManager.getInstance()INSERT ARTICLE
-		request.setAttribute("message", "utilisateur enregistré :)");
+//		ArticleManager.getInstance()INSERT ARTICLE
+//		request.setAttribute("message", "utilisateur enregistré :)");
 		doGet(request, response);
 	}
 

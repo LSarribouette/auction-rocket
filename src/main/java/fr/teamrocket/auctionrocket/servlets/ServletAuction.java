@@ -18,7 +18,7 @@ import fr.teamrocket.auctionrocket.bo.Utilisateur;
 /**
  * Servlet implementation class ServletAuctionHome
  */
-@WebServlet({"/ServletAuctionHome", "/auction/home", "/auction/article/sell", "/auction/article/detail"})
+@WebServlet({"/auction"})
 public class ServletAuction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,30 +34,14 @@ public class ServletAuction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("---------ServletAuction doGet---------");
+		System.out.println("je passe dans le ServletAuction doGet");
 		
-//		Si j'arrive ici, je suis connectée et donc je vois les filtres ACHATS/VENTES --> par défaut, je veux voir la liste ACHATS
-//			= Je veux pas listAll par défaut, mais bien listAllAuctions 		
-		List<Article> articles = ArticleManager.getInstance().listAllAuctions();
-        request.setAttribute("articles", articles);     
-
-		request.setAttribute("buying", "koshed"); 
-		
-		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
-		session.setAttribute("current_pseudo", utilisateur.getPseudo());
-		
-		System.out.println(utilisateur.getNom());
-			if(request.getServletPath().equals("/auction/article/detail")) {
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/article-detail.jsp");
-				rd.forward(request, response);
-			}  else if(request.getServletPath().equals("/auction/article/sell")) {
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/article-sell.jsp");
-				rd.forward(request, response);
-			}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
+		// je veux récupérer l'article qui a été cliqué et l'afficher :
+		// je veux voir la fiche d'un article en cours d'enchères, pouvoir enchérir et surenchérir, 
+		// 	créditer/recréditer l'utilisateur connecté au fil de l'eau
+				
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction.jsp");
 		rd.forward(request, response);
-		
 	}
 
 	/**
