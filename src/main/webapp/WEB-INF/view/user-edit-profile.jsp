@@ -50,7 +50,7 @@
 		<br><br>	
 		<input type="submit" value="SUBMIT"> 
 	</form>
-	<form action="<%=request.getContextPath()%>/user/myprofile">
+	<form action="<%=request.getContextPath()%>/user/showprofile">
          <button type="submit">CANCEL</button>
 	</form>
 	

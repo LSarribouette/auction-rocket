@@ -1,11 +1,12 @@
 package fr.teamrocket.auctionrocket.servlets;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +40,9 @@ public class ServletSales extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/sale.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -48,7 +50,7 @@ public class ServletSales extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------ServletUserSales doPost-----------");
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
 		System.out.println("current user is : "+utilisateur.getPseudo());
 		
@@ -63,62 +65,57 @@ public class ServletSales extends HttpServlet {
 		System.out.println("postalcode "+request.getParameter("postalcode"));
 		System.out.println("city "+request.getParameter("city"));
 		
-		
+//		il faut fetch la catégorie dans la DB LA
+//		Pour l'instant test en dure, mais apres fetch selon le libellé ou id
 		Categorie categorie = new Categorie(
-			request.getParameter("category").toString()
+				1, "Art"
+//			request.getParameter("category").toString()
 		); 
+		System.out.println("categorie :"+categorie.toString());
 		
 		Retrait retrait = new Retrait(
 			request.getParameter("street"),
 			request.getParameter("postalcode"),
 			request.getParameter("city")
 		);
+		System.out.println("retrait :"+retrait.toString());
 		
 		String photoArticle = null;
-		
 		if(request.getParameter("photo-article").toString()!=null) {
 			photoArticle = request.getParameter("photo-article").toString(); 
 		}
 		
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
 		Date dateStart = null;
-		try {
-			dateStart = (Date)formatter.parse(request.getParameter("date-start"));
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
 		Date dateEnd = null;
 		try {
+			dateStart = (Date)formatter.parse(request.getParameter("date-start"));
 			dateEnd = (Date)formatter.parse(request.getParameter("date-end"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		System.out.println("dateStart : "+dateStart);
+		System.out.println("dateEnd : "+dateEnd);
 		
 		Article article = new Article(
-			request.getParameter("nom-article").toString(),
-			request.getParameter("description").toString(),
+				request.getParameter("nom-article").toString(),
+				request.getParameter("description").toString(),
+//				(Date)request.getParameter("date-start"),
+				dateStart,
+//				(Date)request.getParameter("date-end"),
+				dateEnd,
+				Integer.parseInt(request.getParameter("prix-initial")),
+//				utilisateur récupéré depuis la session
+				utilisateur,
+				categorie,
+				retrait,
+				photoArticle
+			); 
+		System.out.println("article -> "+article.toString());
 		
-			dateStart,
-//			(Date)request.getParameter("date-start"),
-			dateEnd,
-//			(Date)request.getParameter("date-end"),
-			
-			Integer.parseInt(request.getParameter("prix-initial")),
-//			utilisateur récupéré depuis la session
-			utilisateur,
-
-			categorie,
-				
-			retrait,
-				
-			photoArticle
-		); 
-		
-//		ArticleManager.getInstance()INSERT ARTICLE
-//		request.setAttribute("message", "utilisateur enregistré :)");
+		ArticleManager.getInstance().insertArticle(utilisateur, article, categorie);
+		request.setAttribute("message", "article enregistré :)");
 		doGet(request, response);
 	}
-
 }
