@@ -1,14 +1,13 @@
 package fr.teamrocket.auctionrocket.bo;
 
 public class Retrait {
-	private Article article;
 	private String rue;
 	private String codePostal;
 	private String ville;
 	
 	@Override
 	public String toString() {
-		return "Retrait [getArticle()=" + getArticle() + ", getRue()=" + getRue() + ", getCodePostal()="
+		return "Retrait [getRue()=" + getRue() + ", getCodePostal()="
 				+ getCodePostal() + ", getVille()=" + getVille() + "]";
 	}
 
@@ -16,20 +15,13 @@ public class Retrait {
 		
 	}
 	
-	public Retrait(Article article, String rue, String codePostal, String ville) {
-		super();
-		this.setArticle(article);
+	public Retrait(String rue, String codePostal, String ville) {
+		this();
 		this.setRue(rue);
 		this.setCodePostal(codePostal);
 		this.setVille(ville);
 	}
 	
-	public Article getArticle() {
-		return article;
-	}
-	public void setArticle(Article article) {
-		this.article = article;
-	}
 	public String getRue() {
 		return rue;
 	}

@@ -14,33 +14,33 @@
 	<!-- TODO : FOUTRE DES REQUIRED -->
 	<fieldset>ARTICLE SELL FORM
 	<form action="<%=request.getContextPath()%>/user/mysales" method="post" >
-		<label for="name">Article: </label>
-	   	<input type="text" name="name" id="name" >
+		<label for="nom-article">Article: </label>
+	   	<input type="text" name="nom-article" id="nom-article" >
 	   	<br>    
 	   	<label for="description">Description: </label>
-	   	<textarea rows="5" cols="10">description</textarea>
+	   	<textarea rows="5" cols="15">description</textarea>
 	   	<br>
 	   	<label for="category">Categorie</label>
 	   	<select name="category" id="category">
-	   		<option>tout</option>
-	   		<option>électronique</option>
-	   		<option>matériel de torture</option>
+	   		<option value="tout">tout</option>
+	   		<option value="electronique">électronique</option>
+	   		<option value="torture">matériel de torture</option>
 	   	</select>
 	   	<br>
 	   	<label for="photo-article">photo de l'article: </label>
 	   	<input type="file" name="photo-article" id="photo-article" accept="image/png, image/jpeg">
 	   	<br>
-	   	<label for="prix">Mise à prix:</label>	
-		<input type="number" id="prix" name="prix" min="0">
+	   	<label for="prix-initial">Mise à prix:</label>	
+		<input type="number" id="prix-initial" name="prix-initial" min="0">
 	   	<br>
 	   	<label for="date-start">Start date:</label>
-		<input type="date" id="date-start" name="date-start"
-	      value="2022-01-30"
+		<input type="datetime-local" id="date-start" name="date-start"
+	      value="2022-01-30 12:00"
 	      min="" max="">
 		<br>
 		<label for="date-end">End date:</label>
-		<input type="date" id="date-end" name="date-end"
-	      value="2022-01-30"
+		<input type="datetime-local" id="date-end" name="date-end"
+	      value="2022-01-30 12:00"
 	      min="" max="">
 	   	<br>
 	   	<fieldset>Retrait
@@ -51,12 +51,27 @@
 	   	<label for="city">Ville: </label>
 	   	<input type="text" name="city" id="city">
 	   	</fieldset>
-	   	<input type="submit" value="Submit - if form ok">
+	   	<input type="submit" value="SUBMIT">
 		<button>
 			<a href="<%=request.getContextPath()%>/auction/home">CANCEL</a>
 		</button>
 	</form>
 
 	</fieldset>
+	
+	<script>
+	/* PETIT BOUT DE SCRIPT pour set la date now dans le form par défaut :)  */
+		window.addEventListener('load', () => {
+			let nowDate = new Date();
+			nowDate.setMinutes(nowDate.getMinutes() - nowDate.getTimezoneOffset());
+			/* remove second/millisecond if needed - credit ref. 
+			https://stackoverflow.com/questions/24468518/html5-input-datetime-local-default-value-of-today-and-current-time#comment112871765_60884408 */
+			nowDate.setMilliseconds(null)
+		  	nowDate.setSeconds(null)
+			document.querySelector('#date-start').value = nowDate.toISOString().slice(0, -1);
+			/* TODO :  DATE END à +7j */
+			document.querySelector('#date-end').value = nowDate.toISOString().slice(0, -1);
+		});
+	</script>
 </body>
 </html>

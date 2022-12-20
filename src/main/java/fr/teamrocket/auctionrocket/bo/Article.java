@@ -14,30 +14,45 @@ public class Article {
 	private Categorie categorie;
 	private String etatVente;
 	private String utilisateurEncherisseur;
+	private Retrait retrait;
 	
+
 	@Override
 	public String toString() {
-		return "Article [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
-				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixInitial="
-				+ prixInitial + ", prixVente=" + prixVente + ", utilisateur=" + utilisateur + ", categorie=" + categorie
-				+ ", etatVente=" + etatVente + ", utilisateurEncherisseur=" + utilisateurEncherisseur + "]";
+		return "Article [getNoArticle()=" + getNoArticle() + ", getNomArticle()=" + getNomArticle()
+				+ ", getDescription()=" + getDescription() + ", getDateDebutEnchere()=" + getDateDebutEnchere()
+				+ ", getDateFinEnchere()=" + getDateFinEnchere() + ", getPrixInitial()=" + getPrixInitial()
+				+ ", getPrixVente()=" + getPrixVente() + ", getUtilisateur()=" + getUtilisateur() + ", getCategorie()="
+				+ getCategorie() + ", getEtatVente()=" + getEtatVente() + ", getUtilisateurEncherisseur()="
+				+ getUtilisateurEncherisseur() + "]";
 	}
 
 	public Article() {
 		
 	}
 	
-	public Article(int noArticle, String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
-			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente) {
+	public Article(int noArticle) {
 		this.setNoArticle(noArticle);
+	}
+
+//	constructeur pour handle le form de modif de profil
+	public Article(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
+			int prixInitial, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
+		this();
 		this.setNomArticle(nomArticle);
 		this.setDescription(description); 
 		this.setDateDebutEnchere(dateDebutEnchere);
 		this.setDateFinEnchere(dateFinEnchere);
 		this.setPrixInitial(prixInitial);
-		this.setPrixVente(prixVente);
 		this.setUtilisateur(utilisateur);
 		this.setCategorie(categorie);
+		this.setRetrait(retrait);
+	}
+
+
+	public Article(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
+			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente,Retrait retrait) {
+		this(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, utilisateur, categorie, retrait);
 		this.setEtatVente(etatVente);
 	}
 	
@@ -45,7 +60,7 @@ public class Article {
 			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente, String utilisateurEncherisseur) {
 		this();
 		this.setUtilisateurEncherisseur(utilisateurEncherisseur);
-	}
+	}	
 
 	public int getNoArticle() {
 		return noArticle;
@@ -117,5 +132,14 @@ public class Article {
 	public void setUtilisateurEncherisseur(String utilisateurEncherisseur) {
 		this.utilisateurEncherisseur = utilisateurEncherisseur;
 	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
 
 }

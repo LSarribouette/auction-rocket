@@ -34,6 +34,7 @@ public class Utilisateur {
 //	constructeur pour handle le form de modif de profil
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String mdp) {
+		this();
 		this.setPseudo(pseudo);
 		this.setNom(nom);
 		this.setPrenom(prenom);

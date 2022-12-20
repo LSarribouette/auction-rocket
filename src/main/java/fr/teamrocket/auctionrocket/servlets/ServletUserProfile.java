@@ -104,9 +104,7 @@ public class ServletUserProfile extends HttpServlet {
 			System.out.println("problem fetching, sessionning USER");
 		}
 		System.out.println("new -> "+session.getAttribute("current_user"));
-	
 		doGet(request, response);
-		
 	}
 
 }
