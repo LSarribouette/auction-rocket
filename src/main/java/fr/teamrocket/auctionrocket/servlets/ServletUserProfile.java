@@ -16,7 +16,7 @@ import fr.teamrocket.auctionrocket.bo.Utilisateur;
 /**
  * Servlet implementation class ServletUserProfile
  */
-@WebServlet({"/ServletUserProfile", "/user/myprofile", "/user/editprofile", "/user/deleteprofile"})
+@WebServlet({"/user/showprofile", "/user/editprofile", "/user/deleteprofile"})
 public class ServletUserProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -52,7 +52,7 @@ public class ServletUserProfile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO reception des infos de modif du profil
 		System.out.println("---------ServletUserPofile doPost----------");
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		Utilisateur utilisateurBeforeEdit = (Utilisateur) session.getAttribute("current_user");
 		System.out.println("BEFORE EDIT -> current user: "+utilisateurBeforeEdit.getNom());
 		System.out.println("session ID : "+session.getId());

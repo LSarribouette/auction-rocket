@@ -19,7 +19,7 @@ import fr.teamrocket.auctionrocket.bo.Article;
 /**
  * Servlet implementation class ServletSearch
  */
-@WebServlet({ "/ServletSearch", "/search" })
+@WebServlet({"/search"})
 public class ServletSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -74,7 +74,7 @@ public class ServletSearch extends HttpServlet {
 			articles = ArticleManager.getInstance().listAll();
 			request.setAttribute("articles", articles);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 			rd.forward(request, response);
 			return;
 		}
@@ -95,7 +95,7 @@ public class ServletSearch extends HttpServlet {
 				System.out.println("aucune case cochée"); // TODO supp
 				articles = ArticleManager.getInstance().listAllAuctions();
 				request.setAttribute("articles", articles);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -123,7 +123,7 @@ public class ServletSearch extends HttpServlet {
 
 			request.setAttribute("articles", articles);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 			rd.forward(request, response);
 
 			// MES VENTES
@@ -140,7 +140,7 @@ public class ServletSearch extends HttpServlet {
 				System.out.println("aucune case cochée"); // TODO supp
 				articles = ArticleManager.getInstance().listAllSales();
 				request.setAttribute("articles", articles);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 				rd.forward(request, response);
 				return;
 			}
@@ -172,7 +172,7 @@ public class ServletSearch extends HttpServlet {
 
 			request.setAttribute("articles", articles);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction-home.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/home.jsp");
 			rd.forward(request, response);
 		}
 	}

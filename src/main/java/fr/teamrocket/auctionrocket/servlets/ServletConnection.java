@@ -18,7 +18,7 @@ import fr.teamrocket.auctionrocket.bo.Utilisateur;
 /**
  * Servlet implementation class ServletConnection
  */
-@WebServlet({"/ServletConnection", "/connection/signup", "/connection/login", "/connection/logout"})
+@WebServlet({"/connection/signup", "/connection/login", "/connection/logout"})
 public class ServletConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -59,7 +59,7 @@ public class ServletConnection extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("-----------ServletConnection doPost-----------");
-//		reception login form, check user ok in DB, IF OK we go create session and  -> /auction/home
+//		reception login form, check user ok in DB, IF OK we go create session and  -> /home
 //		TODO : chiffrer le MDP
 		String pseudo = request.getParameter("pseudo");
 		String pwd = request.getParameter("pwd");
@@ -71,7 +71,7 @@ public class ServletConnection extends HttpServlet {
 			System.out.println("session ID : "+session.getId());
 			session.setAttribute("current_user", utilisateur);
 			System.out.println("session current user logged -> "+session.getAttribute("current_user"));
-			RequestDispatcher rd = request.getRequestDispatcher("/auction/home");
+			RequestDispatcher rd = request.getRequestDispatcher("/home");
 			rd.forward(request, response);
 		} else {
 			System.out.println("user unknow ! :( BACK TO LOGIN");

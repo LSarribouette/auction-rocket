@@ -10,7 +10,7 @@
 
 <jsp:include page="/WEB-INF/view/blocs/header.jsp"/>
 
-<h1>article detail</h1>
+<h1>Fiche de l'article en cours d'enchères</h1>
 
 </body>
 </html>
