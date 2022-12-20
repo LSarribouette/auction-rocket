@@ -101,7 +101,8 @@ CREATE TABLE articles (
     prix_vente                    INTEGER,
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL,
-	 etat_vente					 		VARCHAR(30) NOT NULL DEFAULT ('non débuté','en cours','vendu')
+	 etat_vente					 	VARCHAR(30) NOT NULL DEFAULT ('non débuté','en cours','vendu'),
+	 urlImage							VARCHAR(250) NULL
 );
 
 ALTER TABLE articles ADD constraint articles_pk PRIMARY KEY (no_article);
@@ -155,6 +156,8 @@ Choix de valeurs par défaut dans `utilisateurs` avec credit = 0 et administrate
 
 Choix de 100 caractères autorisés pour l'email d'un utilisateur.
 
+Choix d'ajouter un attribut String pour stocker l'url de l'image de l'article, qui elle sera gérée dans l'appli directement.
+
 ## Affichage des tables
 
 ```
@@ -166,7 +169,7 @@ SELECT no_article, rue, code_postal, ville FROM public.retraits;
 
 SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM public.utilisateurs;
 
-SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM public.articles;
+SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente, urlImage FROM public.articles;
 ```
 
 ## Ajout de données test
@@ -223,6 +226,9 @@ INSERT INTO public.encheres(no_utilisateur, no_article, date_enchere, montant_en
 ```
 -- SELECT_ALL = 
 		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles;
+		
+-- SELECT_BY_CATEGORY =
+		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, c.libelle etat_vente FROM articles  a INNER JOIN categories c ON a.no_categorie = c.no_categorie WHERE c.no_categorie =?;
 
 -- SELECT_ALL_AUCTIONS = 
 		SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur !=?;
