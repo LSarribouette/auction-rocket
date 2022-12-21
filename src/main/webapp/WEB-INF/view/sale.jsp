@@ -37,6 +37,7 @@
 	   	<label for="prix-initial">Mise à prix:</label>	
 		<input type="number" id="prix-initial" name="prix-initial" min="0">
 	   	<br>
+	   	
 	   	<label for="date-start">Start date:</label>
 		<input type="datetime-local" id="date-start" name="date-start"
 	      value="2022-01-30T12:00"
@@ -46,6 +47,7 @@
 		<input type="datetime-local" id="date-end" name="date-end"
 	      value="2022-01-30T12:00"
 	      min="" max="">
+	      
 	   	<br>
 	   	<fieldset>Retrait
 	   	<label for="street">Rue: </label>

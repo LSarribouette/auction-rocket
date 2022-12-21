@@ -1,11 +1,14 @@
 package fr.teamrocket.auctionrocket.dal;
 
 import java.sql.Connection;
+
 import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,9 +62,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 //			pstmt.setDate(4, (Date) article.getDateFinEnchere());	ORI
 //			statement.setDate(1, new java.sql.Date(date.getTime()));
 			
-			pstmt.setDate(3, new Date(article.getDateDebutEnchere().getTime()));
-			pstmt.setDate(4, new Date(article.getDateFinEnchere().getTime()));
-			
+			pstmt.setDate(3, Date.valueOf(article.getDateDebutEnchere()));
+			pstmt.setDate(4, Date.valueOf(article.getDateFinEnchere()));
 			
 			pstmt.setInt(5, article.getPrixInitial());
 			pstmt.setInt(6, utilisateur.getNoUtilisateur());
@@ -91,8 +93,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -125,8 +127,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				
+				System.out.println("rs.getDate(\"date_debut_encheres\") -> "+rs.getDate("date_debut_encheres"));
+
+				System.out.println("rs.getDate(\"date_debut_encheres\").toLocalDate() -> "+rs.getDate("date_debut_encheres").toLocalDate());
+
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -157,8 +164,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -190,8 +197,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -224,8 +231,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -257,8 +264,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -289,8 +296,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -321,8 +328,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);
@@ -353,8 +360,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				article.setDateDebutEnchere(rs.getDate("date_debut_encheres"));
-				article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
+				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));
 				article.setPrixVente(rs.getInt("prix_vente"));
 				article.setUtilisateur(utilisateur);

@@ -1,11 +1,10 @@
 package fr.teamrocket.auctionrocket.servlets;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
+import java.sql.Date; 
 //TODO : au secours
 //import java.util.Date;
 
@@ -63,10 +62,39 @@ public class ServletSales extends HttpServlet {
 		System.out.println("photo-article "+request.getParameter("photo-article"));
 		System.out.println("prix-initial "+request.getParameter("prix-initial"));
 		System.out.println("date-start "+request.getParameter("date-start"));
+//
+//		System.out.println("datetime-date-end "+request.getParameter("datetime-date-end"));
+//		System.out.println("date-date-end "+request.getParameter("date-date-end"));
+//		
+//				
+//		String initDateStart = request.getParameter("date-start");
+//		String newDateStart = initDateStart.replace("T", " ");
+//		
+//		
+//		System.out.println("date-start replace : "+newDateStart);
+//		System.out.println("Date.valueOf(newDateStart) "+Date.valueOf(newDateStart));
+//		
 		System.out.println("date-end "+request.getParameter("date-end"));
 		System.out.println("street "+request.getParameter("street"));
 		System.out.println("postalcode "+request.getParameter("postalcode"));
 		System.out.println("city "+request.getParameter("city"));
+		
+//		2022-12-20T22:42		formTIME
+//		2022-12-24 00:08:00 	DBTime
+//		String pattern = "yyyy-MM-dd HH:mm:ss";
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//		
+//		String culdebli="2022-12-20T22:42";
+//		String newcul =culdebli.replace("T", " ");
+//		System.out.println("newcudebli "+newcul);
+//		2022-12-20 22:42
+		
+//		String date_s = " 2011-01-18 00:00:00.0"; 
+//		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+//		Date date = dt.parse(date_s); 
+//		SimpleDateFormat dt1 = new SimpleDateFormat("yyyyy-mm-dd");
+//		
+		
 		
 //		il faut fetch la catégorie dans la DB LA
 //		Pour l'instant test en dure, mais apres fetch selon le libellé ou id
@@ -99,13 +127,31 @@ public class ServletSales extends HttpServlet {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+//		LocalDate dateStart, dateEnd;
+		
+		LocalDate dateStart, dateEnd;
+		
 		Article article = new Article(
-				request.getParameter("nom-article").toString(),
-				request.getParameter("description").toString(),
-				(Date)request.getParameter("date-start"),
+				request.getParameter("nom-article"),
+				request.getParameter("description"),
+//				Date.valueOf(request.getParameter("date-start")),
 //				dateStart,
-				(Date)request.getParameter("date-end"),
+//				Date.valueOf(request.getParameter("date-start")),
+//				Date.valueOf(request.getParameter("date-end")),
 //				dateEnd,
+				
+//				Timestamp.valueOf(request.getParameter("date-start").toString()));
+//				
+//				Date.valueOf(request.getParameter("date-start").toString()),
+//				Date.valueOf(request.getParameter("date-end").toString()),
+//				
+//				request.getParameter("date-start"),
+//				request.getParameter("date-end"),
+//				
+//				je souhaite garder la possibilité de récup l'heure, donc je substring pour la virer, 
+//				pour partir dans le traitement Date, sans heure 
+				dateStart = LocalDate.parse(request.getParameter("date-start").substring(0,10)),
+		        dateEnd = LocalDate.parse(request.getParameter("date-end").substring(0,10)),
 				Integer.parseInt(request.getParameter("prix-initial")),
 //				utilisateur récupéré depuis la session
 				utilisateur,
@@ -113,6 +159,7 @@ public class ServletSales extends HttpServlet {
 				retrait,
 				photoArticle
 			); 
+		
 		System.out.println("article -> "+article.toString());
 		
 		ArticleManager.getInstance().insertArticle(utilisateur, article, categorie);

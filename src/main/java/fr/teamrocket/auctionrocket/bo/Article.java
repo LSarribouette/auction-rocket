@@ -2,7 +2,9 @@ package fr.teamrocket.auctionrocket.bo;
 
 //TODO : au secours
 //import java.util.Date; 
-import java.sql.Date;
+//import java.sql.Date;
+
+import java.time.LocalDate;
 
 public class Article {
 	private final static String DEFAULT_URL_IMAGE ="/auction-rocket/src/main/webapp/media/placeHolderDefault.jpg";
@@ -10,8 +12,12 @@ public class Article {
 	private int noArticle;
 	private String nomArticle;
 	private String description;
-	private Date dateDebutEnchere;
-	private Date dateFinEnchere;
+//	private Date dateDebutEnchere;
+//	private Date dateFinEnchere;
+//	
+	private LocalDate dateDebutEnchere;
+	private LocalDate dateFinEnchere;
+	
 	private int prixInitial;
 	private int prixVente;
 	private Utilisateur utilisateur;
@@ -42,7 +48,7 @@ public class Article {
 
 //	constructeur pour handle le form de modif de profil
 	public Article(String nomArticle, String description, 
-			Date dateDebutEnchere, Date dateFinEnchere,
+			LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			int prixInitial, Utilisateur utilisateur, 
 			Categorie categorie, Retrait retrait) {
 		this.setNomArticle(nomArticle);
@@ -58,8 +64,8 @@ public class Article {
 	public Article(
 			String nomArticle, 
 			String description, 
-			Date dateDebutEnchere, 
-			Date dateFinEnchere,
+			LocalDate dateDebutEnchere, 
+			LocalDate dateFinEnchere,
 			int prixInitial, 
 			Utilisateur utilisateur, 
 			Categorie categorie, 
@@ -69,13 +75,13 @@ public class Article {
 		this.setUrlImage(urlImage);
 	}
 	
-	public Article(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
+	public Article(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente,Retrait retrait, String urlImage) {
 		this(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, utilisateur, categorie, retrait, urlImage);
 		this.setEtatVente(etatVente);
 	}
 	
-	public Article(int noArticle, String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
+	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			int prixInitial, int prixVente, Utilisateur utilisateur, Categorie categorie, String etatVente, String utilisateurEncherisseur) {
 		this();
 		this.setUtilisateurEncherisseur(utilisateurEncherisseur);
@@ -99,16 +105,16 @@ public class Article {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getDateDebutEnchere() {
+	public LocalDate getDateDebutEnchere() {
 		return dateDebutEnchere;
 	}
-	public void setDateDebutEnchere(Date dateDebutEnchere) {
+	public void setDateDebutEnchere(LocalDate dateDebutEnchere) {
 		this.dateDebutEnchere = dateDebutEnchere;
 	}
-	public Date getDateFinEnchere() {
+	public LocalDate getDateFinEnchere() {
 		return dateFinEnchere;
 	}
-	public void setDateFinEnchere(Date dateFinEnchere) {
+	public void setDateFinEnchere(LocalDate dateFinEnchere) {
 		this.dateFinEnchere = dateFinEnchere;
 	}
 	public int getPrixInitial() {
