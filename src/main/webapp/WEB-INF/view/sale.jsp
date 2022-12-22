@@ -1,3 +1,5 @@
+<%@page import="fr.teamrocket.auctionrocket.errormessages.MessageReader"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +12,25 @@
 <jsp:include page="/WEB-INF/view/blocs/header.jsp"/>
     <h1>Fiche de l'article à mettre en vente</h1>
     <!-- TODO : FOUTRE DES REQUIRED -->
+    
+    
+	<%
+		List<Integer> errorCodeList = (List<Integer>)request.getAttribute("errorCodeList");
+		if(errorCodeList != null) {
+	%>
+		<h3 style="color:red;">Erreur dans le formulaire :( </h3>
+		<ul>
+	<%
+			for(int code : errorCodeList) {
+	%>
+			<li><%=MessageReader.getErrorMessages(code) %></li>
+	<%
+			}
+	%>
+		</ul>
+	<%
+		}
+	%>
     
     
     <%=request.getAttribute("message") %>

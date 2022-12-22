@@ -1,20 +1,16 @@
 package fr.teamrocket.auctionrocket.servlets;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.sql.Date; 
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 import fr.teamrocket.auctionrocket.bll.ArticleManager;
 import fr.teamrocket.auctionrocket.bo.Article;
@@ -106,12 +102,7 @@ public class ServletSales extends HttpServlet {
 //		fetchdetailarticle 
 //		verif de ce qu'on construit le Article Avec;
 //		JE FOUS DES REGEXP dans tous les sens
-//		 JE TRAITE LES DATA lowercase, replace ;bytruc 
-		
-//		exemple:
-//		if(nomArticle isValidString){
-//		nomArticle=nomArticle.towercase
-			
+//		JE TRAITE LES DATA lowercase, replace ;bytruc 
 
 //TRAVAUX	mise en place message erreurs
 		
@@ -173,26 +164,25 @@ public class ServletSales extends HttpServlet {
 //		TRAITEMENT DES ERREURS POTENTIELLES
 		if(be.hasErrors()) {
 			request.setAttribute("errorCodeList", be.getErrorCodeList());
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sale.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/sale.jsp");
 			rd.forward(request, response);
 		} else {
-			try {
-				Article article = new Article(
-						nomArticle,			
-						descriptionArticle,
-						dateStart,
-						dateEnd,
-						prixInitial,
-						utilisateur,
-						categorie,
-						retrait,
-						photoArticle
-					); 
-				
-				System.out.println("article -> "+article.toString());
-				ArticleManager.getInstance().insertArticle(utilisateur, article, categorie);
-				request.setAttribute("message", "article enregistré :)");
-				doGet(request, response);
-			}
+			Article article = new Article(
+					nomArticle,			
+					descriptionArticle,
+					dateStart,
+					dateEnd,
+					prixInitial,
+					utilisateur,
+					categorie,
+					retrait,
+					photoArticle
+				); 
+			
+			System.out.println("article -> "+article.toString());
+			ArticleManager.getInstance().insertArticle(utilisateur, article, categorie);
+			request.setAttribute("message", "article enregistré :)");
+			doGet(request, response);
 		}
+	}
 }

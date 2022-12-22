@@ -22,7 +22,7 @@ public class MessageReader {
 				message = rb.getString(String.valueOf(code));
 			} catch (Exception e) {
 				e.printStackTrace();
-				message = code + "UNKNOWN ERROR CAUGHT";
+				message = code + " - UNKNOWN ERROR CAUGHT";
 			}
 		} else {
 			message = "UNABLE TO READ THE FILE error_messages";
