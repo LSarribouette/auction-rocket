@@ -24,7 +24,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) {
-		System.out.println("tentative d'insertion d'un Utilisateur en DB - "+utilisateur);
+		System.out.println("tentative d'insertion d'un Utilisateur en DB");
 //		PreparedStatement pstmt = null; JE SAIS PAS SI C'est mieux de mettre ça
 		try(Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_UTILISATEUR);
@@ -53,6 +53,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		return utilisateur;
 	}
+	
 
 	@Override
 	public Utilisateur fetchUtilisateurByPseudoAndMdp(String pseudo, String pwd) {

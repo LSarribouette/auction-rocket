@@ -43,14 +43,13 @@
 						href="<%=request.getContextPath() %>/article/detail">
 					<%} %> --%>
 				
-				href="<%=request.getContextPath()%>/auction"><%=a.getNomArticle()%></a></td>
+				href="<%=request.getContextPath()%>/auction?articleID=+<%=a.getNoArticle()%>"><%=a.getNomArticle()%></a></td>
 				<td><%=a.getDescription()%></td>
 				
 <%-- TODO:corriger les a.getDate ! --%>
 
 				<td><%=a.getDateDebutEnchere()%></td>
 				<td><%=a.getDateFinEnchere()%></td> 
-
 				<td><%=a.getPrixInitial()%></td>
 				<td><%=a.getPrixVente()%></td>
 				<td><%=a.getUtilisateur().getNoUtilisateur()%></td>

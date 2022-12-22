@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.teamrocket.auctionrocket.bll.ArticleManager;
+import fr.teamrocket.auctionrocket.bll.UtilisateurManager;
 import fr.teamrocket.auctionrocket.bo.Article;
 import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletAuctionHome
  */
-@WebServlet({"/auction"})
+@WebServlet("/auction")
 public class ServletAuction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,11 +35,23 @@ public class ServletAuction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("je passe dans le ServletAuction doGet");
+		System.out.println("-------ServletAuction doGet----------");
+		String articleIDString = request.getParameter("articleID").trim();
+		int articleID = Integer.parseInt(articleIDString);
 		
-		// je veux récupérer l'article qui a été cliqué et l'afficher :
-		// je veux voir la fiche d'un article en cours d'enchères, pouvoir enchérir et surenchérir, 
-		// 	créditer/recréditer l'utilisateur connecté au fil de l'eau
+//		manager getarticlebyid
+		Article article = ArticleManager.getInstance().fetchArticleByID(articleID);
+		if(article != null) {
+			request.setAttribute("article", article);
+		}
+		
+		int sellerID = article.getUtilisateur().getNoUtilisateur();
+		System.out.println("sellerID : " + sellerID);
+		Utilisateur seller = UtilisateurManager.getInstance().fetchUtilisateurById(sellerID);
+		System.out.println("seller : "+seller);
+		if(seller != null) {
+			request.setAttribute("seller", seller);
+		}
 				
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/auction.jsp");
 		rd.forward(request, response);
@@ -48,7 +61,8 @@ public class ServletAuction extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("-------ServletAuction doPost----------");
+
 		doGet(request, response);
 	}
 

@@ -50,31 +50,6 @@ public class ServletSales extends HttpServlet {
 		System.out.println("------------ServletUserSales doPost-----------");
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("current_user");
-		System.out.println("current user is : "+utilisateur.getPseudo());
-		
-		System.out.println("nom-article "+request.getParameter("nom-article"));
-		System.out.println("description "+request.getParameter("description"));
-		System.out.println("category "+request.getParameter("category"));
-		System.out.println("photo-article "+request.getParameter("photo-article"));
-		System.out.println("prix-initial "+request.getParameter("prix-initial"));
-		System.out.println("date-start "+request.getParameter("date-start"));
-//
-//		System.out.println("datetime-date-end "+request.getParameter("datetime-date-end"));
-//		System.out.println("date-date-end "+request.getParameter("date-date-end"));
-//		
-//				
-//		String initDateStart = request.getParameter("date-start");
-//		String newDateStart = initDateStart.replace("T", " ");
-//		
-//		
-//		System.out.println("date-start replace : "+newDateStart);
-//		System.out.println("Date.valueOf(newDateStart) "+Date.valueOf(newDateStart));
-//		
-		System.out.println("date-end "+request.getParameter("date-end"));
-		System.out.println("street "+request.getParameter("street"));
-		System.out.println("postalcode "+request.getParameter("postalcode"));
-		System.out.println("city "+request.getParameter("city"));
-		
 		
 //		il faut fetch la catégorie dans la DB LA
 //		Pour l'instant test en dure, mais apres fetch selon le libellé ou id depuis le form
@@ -82,15 +57,11 @@ public class ServletSales extends HttpServlet {
 				1, "Art"
 //			request.getParameter("category").toString()
 		); 
-		System.out.println("categorie :"+categorie.toString());
-		
 		Retrait retrait = new Retrait(
 			request.getParameter("street"),
 			request.getParameter("postalcode"),
 			request.getParameter("city")
 		);
-		System.out.println("retrait :"+retrait.toString());
-		
 		String photoArticle = null;
 		if(request.getParameter("photo-article").toString()!=null) {
 			photoArticle = request.getParameter("photo-article").toString(); 
@@ -104,7 +75,7 @@ public class ServletSales extends HttpServlet {
 //		JE FOUS DES REGEXP dans tous les sens
 //		JE TRAITE LES DATA lowercase, replace ;bytruc 
 
-//TRAVAUX	mise en place message erreurs
+//TRAVAUX mise en place message erreurs
 		
 		//form data rq
 		
@@ -118,7 +89,6 @@ public class ServletSales extends HttpServlet {
 		
 		String dateStartString = request.getParameter("date-start").substring(0,10);
 		String dateEndString = request.getParameter("date-end").substring(0,10);
-
 		
 		//2. Conversion des données de la requête vers le bon type
 		BusinessException be = new BusinessException();
@@ -178,8 +148,6 @@ public class ServletSales extends HttpServlet {
 					retrait,
 					photoArticle
 				); 
-			
-			System.out.println("article -> "+article.toString());
 			ArticleManager.getInstance().insertArticle(utilisateur, article, categorie);
 			request.setAttribute("message", "article enregistré :)");
 			doGet(request, response);

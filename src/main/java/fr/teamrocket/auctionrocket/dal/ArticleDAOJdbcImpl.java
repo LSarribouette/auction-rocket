@@ -103,7 +103,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listall");
+			System.out.println("listAll()");
 			Statement stmt = cnx.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 			Article article = null;
@@ -136,7 +136,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listallauctions");
+			System.out.println("listallauctions()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_AUCTIONS);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur()); 
 			ResultSet rs = pstmt.executeQuery();
@@ -173,7 +173,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listallongoingauctions");
+			System.out.println("listallongoingauctions()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_ONGOING_AUCTIONS);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
@@ -205,7 +205,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listongoinguserauctions");
+			System.out.println("listongoinguserauctions()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ONGOING_USER_AUCTIONS);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			pstmt.setInt(2, utilisateurConnecte.getNoUtilisateur());
@@ -239,7 +239,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listwonuserauctions");
+			System.out.println("listwonuserauctions()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_WON_USER_AUCTIONS);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			pstmt.setInt(2, utilisateurConnecte.getNoUtilisateur());
@@ -273,7 +273,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listallsales");
+			System.out.println("listallsales()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_SALES);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
@@ -305,7 +305,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listongoingusersales");
+			System.out.println("listongoingusersales()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ONGOING_USER_SALES);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
@@ -337,7 +337,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listongoingusersales");
+			System.out.println("listongoingusersales()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_UNSTARTED_USER_SALES);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();
@@ -369,7 +369,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
-			System.out.println("je rentre dans le listongoingusersales");
+			System.out.println("listongoingusersales()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ENDED_USER_SALES);
 			pstmt.setInt(1, utilisateurConnecte.getNoUtilisateur());
 			ResultSet rs = pstmt.executeQuery();

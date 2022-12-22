@@ -41,9 +41,6 @@ public class ServletHome extends HttpServlet {
 			doGetConnected(request, response);
 			return;
 		}
-		
-		System.out.println("ServletHome : je passe ici à l'entrée dans l'appli et quand j'appuie sur le logo en non connecté");
-	
 		List<Article> articles = ArticleManager.getInstance().listAll();
         request.setAttribute("articles", articles);            
 		
