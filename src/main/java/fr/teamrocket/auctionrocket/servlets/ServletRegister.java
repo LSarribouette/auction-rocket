@@ -3,6 +3,7 @@ package fr.teamrocket.auctionrocket.servlets;
 import java.io.IOException;
 import java.util.Enumeration;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +57,9 @@ public class ServletRegister extends HttpServlet {
 				); 
 		UtilisateurManager.getInstance().insertUtilisateur(utilisateur);
 		request.setAttribute("message", "utilisateur enregistré :)");
-		doGet(request, response);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/connection-login.jsp");
+		rd.forward(request, response);
 	}
 
 }

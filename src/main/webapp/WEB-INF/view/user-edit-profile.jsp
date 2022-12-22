@@ -16,9 +16,9 @@
 <h1>PROFILE EDIT</h1>
 
 <fieldset>
-<legend>EDITING <%= utilisateur.getPseudo() %> POFILE</legend>
+<legend>EDITING <strong><%= utilisateur.getPseudo() %></strong> PROFILE</legend>
 
-<form action="<%=request.getContextPath() %>/user/myprofile" method="post">
+<form action="<%=request.getContextPath() %>/user/editprofile" method="post">
 	
 		<label for="pseudo">Pseudo</label>
 		<input type="text" name="pseudo" id="pseudo" required value="<%= utilisateur.getPseudo() %>">

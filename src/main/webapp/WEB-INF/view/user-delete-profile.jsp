@@ -10,7 +10,7 @@
 <h1>YOU ARE ABOUT TO DELETE ALL YOUR DATA</h1>
 <h2>your credit will be lost !</h2>
 
-	<form action="<%=request.getContextPath()%>/user/myprofile">
+	<form action="<%=request.getContextPath()%>/home">
          <button type="submit">oui non ok déso frer</button>
 	</form>
 	

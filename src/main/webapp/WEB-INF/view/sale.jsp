@@ -33,7 +33,7 @@
 	%>
     
     
-    <%=request.getAttribute("message") %>
+    <h3 style="color:blue;"><%=request.getAttribute("message") %></h3>
     
     <fieldset>ARTICLE SELL FORM
     <form action="<%=request.getContextPath()%>/sale/create" method="post" >

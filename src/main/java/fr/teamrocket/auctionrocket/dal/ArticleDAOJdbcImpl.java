@@ -134,7 +134,6 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	@Override
 	public List<Article> listAllAuctions(Utilisateur utilisateurConnecte) {
 		List<Article> articles = new ArrayList<>();
-		
 		try(Connection cnx = ConnectionProvider.getConnection()) {
 			System.out.println("listallauctions()");
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_AUCTIONS);
@@ -148,11 +147,6 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
-				
-				System.out.println("rs.getDate(\"date_debut_encheres\") -> "+rs.getDate("date_debut_encheres"));
-
-				System.out.println("rs.getDate(\"date_debut_encheres\").toLocalDate() -> "+rs.getDate("date_debut_encheres").toLocalDate());
-
 				article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
 				article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setPrixInitial(rs.getInt("prix_initial"));

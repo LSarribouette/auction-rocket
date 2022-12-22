@@ -46,9 +46,9 @@ public class ServletAuction extends HttpServlet {
 		}
 		
 		int sellerID = article.getUtilisateur().getNoUtilisateur();
-		System.out.println("sellerID : " + sellerID);
+//		System.out.println("sellerID : " + sellerID);
 		Utilisateur seller = UtilisateurManager.getInstance().fetchUtilisateurById(sellerID);
-		System.out.println("seller : "+seller);
+//		System.out.println("seller : "+seller);
 		if(seller != null) {
 			request.setAttribute("seller", seller);
 		}

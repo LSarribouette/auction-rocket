@@ -66,14 +66,6 @@ public class ServletSales extends HttpServlet {
 		if(request.getParameter("photo-article").toString()!=null) {
 			photoArticle = request.getParameter("photo-article").toString(); 
 		}
-		
-//		LocalDate dateStart, dateEnd;
-		
-//		TODO :
-//		fetchdetailarticle 
-//		verif de ce qu'on construit le Article Avec;
-//		JE FOUS DES REGEXP dans tous les sens
-//		JE TRAITE LES DATA lowercase, replace ;bytruc 
 
 //TRAVAUX mise en place message erreurs
 		
@@ -88,6 +80,7 @@ public class ServletSales extends HttpServlet {
 //      dateEnd = LocalDate.parse(request.getParameter("date-end").substring(0,10)),
 		
 		String dateStartString = request.getParameter("date-start").substring(0,10);
+		
 		String dateEndString = request.getParameter("date-end").substring(0,10);
 		
 		//2. Conversion des données de la requête vers le bon type
@@ -118,6 +111,15 @@ public class ServletSales extends HttpServlet {
 		if(descriptionArticle==null || descriptionArticle.isEmpty() || descriptionArticle.isBlank()) {
 			be.addError(ErrorCodes.CHAMPS_VIDE);
 		}
+//////////////// PROTECTION CONTRE L'INJECTION DE SCRIPT ////////////////////		
+		
+//		System.out.println(descriptionArticle);
+//		String symbol="!! NON TU ARRETES !!";
+//		descriptionArticle = descriptionArticle.replaceAll("[\\<\\>\\;\\{\\}]", " "+symbol+" ");
+//		System.out.println(descriptionArticle);
+		
+////////////////PROTECTION CONTRE L'INJECTION DE SCRIPT ////////////////////
+		
 //		TRAITEMENT DES INT prixInitial
 		String prixInitialString = request.getParameter("prix-initial");
 		int prixInitial = 0;

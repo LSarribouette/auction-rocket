@@ -23,7 +23,7 @@ create account ? ->
 </button>
 
 <%if(request.getAttribute("message")!=null) {%>
-<h3 strong style="color:red"><%=request.getAttribute("message") %></h3>
+<h3 strong style="text-decoration: underline;"><%=request.getAttribute("message") %></h3>
 <%} %>
 
 <fieldset>

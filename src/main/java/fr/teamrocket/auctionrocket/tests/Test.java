@@ -22,6 +22,12 @@ public class Test {
 //		Integer.parseInt("okok");
 //		NumberFormatException
 		
+		String str = "<script>console.log('HAHAHA JE VAIS TOUT PETER script ultra méchant en action : doBordel(){} let horribleVariable = hahaha !!! ;')</script>";
+		System.out.println(str);
+		String symbol="ø";
+		str = str.replaceAll("[\\<\\>\\;\\{\\}]", " "+symbol+" ");
+		System.out.println(str);
+		
 		
 	}
 
