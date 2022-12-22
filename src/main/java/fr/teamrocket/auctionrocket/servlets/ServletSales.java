@@ -83,7 +83,7 @@ public class ServletSales extends HttpServlet {
 		
 		String dateEndString = request.getParameter("date-end").substring(0,10);
 		
-		//2. Conversion des données de la requête vers le bon type
+////////Conversion des données de la requête vers le bon type
 		BusinessException be = new BusinessException();
 //		TRAITEMENT DES DATES
 		LocalDate dateStart = null;
