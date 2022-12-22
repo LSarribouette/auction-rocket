@@ -10,6 +10,8 @@ public interface ArticleDAO {
 	
 	public abstract void insertArticle(Utilisateur utilisateur, Article article, Categorie categorie);
 
+	public abstract Article fetchArticleByID(int articleID);
+	
 //	TOUT
 	public abstract List<Article> listAll();
 	
@@ -36,5 +38,6 @@ public interface ArticleDAO {
 	
 //	VENTE/ventes terminées
 	public abstract List<Article> listEndedUserSales(Utilisateur utilisateurConnecte);
+
 
 }

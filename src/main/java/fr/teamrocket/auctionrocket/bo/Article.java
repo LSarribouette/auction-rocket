@@ -12,12 +12,8 @@ public class Article {
 	private int noArticle;
 	private String nomArticle;
 	private String description;
-//	private Date dateDebutEnchere;
-//	private Date dateFinEnchere;
-//	
 	private LocalDate dateDebutEnchere;
 	private LocalDate dateFinEnchere;
-	
 	private int prixInitial;
 	private int prixVente;
 	private Utilisateur utilisateur;

@@ -3,10 +3,8 @@ package fr.teamrocket.auctionrocket.servlets;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeParseException;
 import java.sql.Date; 
-//TODO : au secours
-//import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,11 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import fr.teamrocket.auctionrocket.bll.ArticleManager;
 import fr.teamrocket.auctionrocket.bo.Article;
 import fr.teamrocket.auctionrocket.bo.Categorie;
 import fr.teamrocket.auctionrocket.bo.Retrait;
 import fr.teamrocket.auctionrocket.bo.Utilisateur;
+import fr.teamrocket.auctionrocket.exception.BusinessException;
 
 /**
  * Servlet implementation class ServletSales
@@ -79,25 +79,9 @@ public class ServletSales extends HttpServlet {
 		System.out.println("postalcode "+request.getParameter("postalcode"));
 		System.out.println("city "+request.getParameter("city"));
 		
-//		2022-12-20T22:42		formTIME
-//		2022-12-24 00:08:00 	DBTime
-//		String pattern = "yyyy-MM-dd HH:mm:ss";
-//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//		
-//		String culdebli="2022-12-20T22:42";
-//		String newcul =culdebli.replace("T", " ");
-//		System.out.println("newcudebli "+newcul);
-//		2022-12-20 22:42
-		
-//		String date_s = " 2011-01-18 00:00:00.0"; 
-//		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
-//		Date date = dt.parse(date_s); 
-//		SimpleDateFormat dt1 = new SimpleDateFormat("yyyyy-mm-dd");
-//		
-		
 		
 //		il faut fetch la catégorie dans la DB LA
-//		Pour l'instant test en dure, mais apres fetch selon le libellé ou id
+//		Pour l'instant test en dure, mais apres fetch selon le libellé ou id depuis le form
 		Categorie categorie = new Categorie(
 				1, "Art"
 //			request.getParameter("category").toString()
@@ -116,54 +100,99 @@ public class ServletSales extends HttpServlet {
 			photoArticle = request.getParameter("photo-article").toString(); 
 		}
 		
-//		TODO : au secours		
-//		Date dateStart = null;
-//		Date dateEnd = null;
-//		try {
-//			dateStart = new SimpleDateFormat("dd-MMM-yyyy HH:mm.").parse(request.getParameter("date-start"));
-//			dateEnd = new SimpleDateFormat("dd-MMM-yyyy HH:mm.").parse(request.getParameter("date-end"));
-//		
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 //		LocalDate dateStart, dateEnd;
 		
-		LocalDate dateStart, dateEnd;
+//		TODO :
+//		fetchdetailarticle 
+//		verif de ce qu'on construit le Article Avec;
+//		JE FOUS DES REGEXP dans tous les sens
+//		 JE TRAITE LES DATA lowercase, replace ;bytruc 
 		
-		Article article = new Article(
-				request.getParameter("nom-article"),
-				request.getParameter("description"),
-//				Date.valueOf(request.getParameter("date-start")),
-//				dateStart,
-//				Date.valueOf(request.getParameter("date-start")),
-//				Date.valueOf(request.getParameter("date-end")),
-//				dateEnd,
+//		exemple:
+//		if(nomArticle isValidString){
+//		nomArticle=nomArticle.towercase
+			
+
+//TRAVAUX	mise en place message erreurs
+		
+		//form data rq
+		
+		String nomArticle = request.getParameter("nom-article");
+		String descriptionArticle = request.getParameter("description");
+		
+//		je souhaite garder la possibilité de récup l'heure, donc je substring pour la virer, 
+//		pour partir dans le traitement Date, sans heure 
+//		dateStart = LocalDate.parse(request.getParameter("date-start").substring(0,10)),
+//      dateEnd = LocalDate.parse(request.getParameter("date-end").substring(0,10)),
+		
+		String dateStartString = request.getParameter("date-start").substring(0,10);
+		String dateEndString = request.getParameter("date-end").substring(0,10);
+
+		
+		//2. Conversion des données de la requête vers le bon type
+		BusinessException be = new BusinessException();
+//		TRAITEMENT DES DATES
+		LocalDate dateStart = null;
+		try {
+			dateStart = LocalDate.parse(dateStartString);
+		} catch (DateTimeParseException e) {
+			e.printStackTrace();
+			be.addError(ErrorCodes.FORMAT_DATE_INCORRECT);
+		}
+		LocalDate dateEnd = null;
+		try {
+			dateEnd = LocalDate.parse(dateEndString);
+		} catch (DateTimeParseException e) {
+			e.printStackTrace();
+			be.addError(ErrorCodes.FORMAT_DATE_INCORRECT);
+		}
+		if(!dateStart.isBefore(dateEnd)) {
+			be.addError(ErrorCodes.CHRONOLOGIE_INVALIDE);
+		}
+//		TRAITEMENT DES STRINGS nom, description
+//		verification de l'emptiness des Strings
+		if(nomArticle==null || nomArticle.isEmpty() || nomArticle.isBlank()) {
+			be.addError(ErrorCodes.CHAMPS_VIDE);
+		}
+		if(descriptionArticle==null || descriptionArticle.isEmpty() || descriptionArticle.isBlank()) {
+			be.addError(ErrorCodes.CHAMPS_VIDE);
+		}
+//		TRAITEMENT DES INT prixInitial
+		String prixInitialString = request.getParameter("prix-initial");
+		int prixInitial = 0;
+		try {
+			prixInitial = Integer.parseInt(prixInitialString);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			be.addError(ErrorCodes.FORMAT_NOMBRE_INVALIDE);
+		}
+		if(prixInitial <= 0) {
+			be.addError(ErrorCodes.FORMAT_NOMBRE_INVALIDE);
+		}
+		
+//		TRAITEMENT DES ERREURS POTENTIELLES
+		if(be.hasErrors()) {
+			request.setAttribute("errorCodeList", be.getErrorCodeList());
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sale.jsp");
+			rd.forward(request, response);
+		} else {
+			try {
+				Article article = new Article(
+						nomArticle,			
+						descriptionArticle,
+						dateStart,
+						dateEnd,
+						prixInitial,
+						utilisateur,
+						categorie,
+						retrait,
+						photoArticle
+					); 
 				
-//				Timestamp.valueOf(request.getParameter("date-start").toString()));
-//				
-//				Date.valueOf(request.getParameter("date-start").toString()),
-//				Date.valueOf(request.getParameter("date-end").toString()),
-//				
-//				request.getParameter("date-start"),
-//				request.getParameter("date-end"),
-//				
-//				je souhaite garder la possibilité de récup l'heure, donc je substring pour la virer, 
-//				pour partir dans le traitement Date, sans heure 
-				dateStart = LocalDate.parse(request.getParameter("date-start").substring(0,10)),
-		        dateEnd = LocalDate.parse(request.getParameter("date-end").substring(0,10)),
-				Integer.parseInt(request.getParameter("prix-initial")),
-//				utilisateur récupéré depuis la session
-				utilisateur,
-				categorie,
-				retrait,
-				photoArticle
-			); 
-		
-		System.out.println("article -> "+article.toString());
-		
-		ArticleManager.getInstance().insertArticle(utilisateur, article, categorie);
-		request.setAttribute("message", "article enregistré :)");
-		doGet(request, response);
-	}
+				System.out.println("article -> "+article.toString());
+				ArticleManager.getInstance().insertArticle(utilisateur, article, categorie);
+				request.setAttribute("message", "article enregistré :)");
+				doGet(request, response);
+			}
+		}
 }

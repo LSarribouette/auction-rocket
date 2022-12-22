@@ -1,4 +1,4 @@
-package fr.teamrocket.auctionrocket.servlets;
+package fr.teamrocket.auctionrocket.tests;
 
 import java.io.IOException;
 import java.io.PrintWriter;

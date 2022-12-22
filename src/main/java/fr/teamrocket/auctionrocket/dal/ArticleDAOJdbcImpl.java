@@ -17,10 +17,12 @@ import fr.teamrocket.auctionrocket.bo.Categorie;
 import fr.teamrocket.auctionrocket.bo.Utilisateur;
 
 public class ArticleDAOJdbcImpl implements ArticleDAO {
+	
+	private final static String SELECT_ARTICLE_BY_ID="SELECT * FROM articles a "
+			+ "WHERE a.no_article = 2;";
 
 	//TODO Factoriser le rs
-	private final static String INSERT_ARTICLE="\r\n"
-			+ "INSERT INTO articles (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente, urlimage) "
+	private final static String INSERT_ARTICLE="INSERT INTO articles (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente, urlimage) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	private final static String SELECT_ALL = 
@@ -50,21 +52,40 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private final static String SELECT_ENDED_USER_SALES = 
 			"SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente FROM articles WHERE no_utilisateur =? AND etat_vente ='vendu';";			
 
+	public Article fetchArticleByID(int articleID) {
+		Article article = null;
+		try(Connection cnx = ConnectionProvider.getConnection()){
+			Statement stmt = cnx.createStatement();
+			ResultSet rs = stmt.executeQuery(SELECT_ARTICLE_BY_ID);
+			if(rs.next()) {
+				article = new Article();
+					Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"));
+					Categorie categorie = new Categorie(rs.getInt("no_categorie"));
+					article.setNoArticle(rs.getInt("no_article"));
+					article.setNomArticle(rs.getString("nom_article"));
+					article.setDescription(rs.getString("description"));
+					article.setDateDebutEnchere(rs.getDate("date_debut_encheres").toLocalDate());
+					article.setDateFinEnchere(rs.getDate("date_fin_encheres").toLocalDate());
+					article.setPrixInitial(rs.getInt("prix_initial"));
+					article.setPrixVente(rs.getInt("prix_vente"));
+					article.setUtilisateur(utilisateur);
+					article.setCategorie(categorie);
+					article.setEtatVente(rs.getString("etat_vente"));
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return article;
+	}
+	
 	@Override
 	public void insertArticle(Utilisateur utilisateur, Article article, Categorie categorie) {
-		System.out.println("tentative d'insertion d'un Article en DB - "+article);
 		try(Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ARTICLE);
 			pstmt.setString(1, article.getNomArticle());
-			pstmt.setString(2, article.getDescription());
-//			cast des Date de java.util.date à java.sql.date je sais pas, je ne souhaite pas en parler
-//			pstmt.setDate(3, (Date) article.getDateDebutEnchere()); ORI
-//			pstmt.setDate(4, (Date) article.getDateFinEnchere());	ORI
-//			statement.setDate(1, new java.sql.Date(date.getTime()));
-			
+			pstmt.setString(2, article.getDescription());	
 			pstmt.setDate(3, Date.valueOf(article.getDateDebutEnchere()));
 			pstmt.setDate(4, Date.valueOf(article.getDateFinEnchere()));
-			
 			pstmt.setInt(5, article.getPrixInitial());
 			pstmt.setInt(6, utilisateur.getNoUtilisateur());
 			pstmt.setInt(7, categorie.getNoCategorie());

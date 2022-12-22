@@ -24,6 +24,10 @@ public class ArticleManager {
     	DAOFactory.getArticleDAO().insertArticle( utilisateur,  article,  categorie);
     }
     
+    public Article fetchArticleByID(int articleID) {
+    	return DAOFactory.getArticleDAO().fetchArticleByID(articleID);
+    }
+    
     public List<Article> listAll() {
         return DAOFactory.getArticleDAO().listAll();
     }

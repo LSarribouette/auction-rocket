@@ -10,6 +10,10 @@
 <jsp:include page="/WEB-INF/view/blocs/header.jsp"/>
     <h1>Fiche de l'article à mettre en vente</h1>
     <!-- TODO : FOUTRE DES REQUIRED -->
+    
+    
+    <%=request.getAttribute("message") %>
+    
     <fieldset>ARTICLE SELL FORM
     <form action="<%=request.getContextPath()%>/sale/create" method="post" >
 		<label for="nom-article">Article: </label>
